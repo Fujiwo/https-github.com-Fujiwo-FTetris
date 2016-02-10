@@ -74,7 +74,8 @@ namespace FTetris.WinForm
                 case Keys.Right: DataContext.MoveRight(     ); break;
                 case Keys.Up   : DataContext.Turn     (     ); break;
                 case Keys.Down : DataContext.Turn     (false); break;
-                case Keys.Space: DataContext.Start    (     ); break;
+                case Keys.Space: DataContext.Drop     (     ); break;
+                case Keys.Enter: DataContext.Start    (     ); break;
             }
         }
     }

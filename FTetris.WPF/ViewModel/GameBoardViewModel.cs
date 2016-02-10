@@ -44,6 +44,9 @@ namespace FTetris.WPF.ViewModel
         public void Turn(bool clockwise = true)
         { DataContext.Turn(clockwise); }
 
+        public void Drop()
+        { DataContext.Drop(); }
+
         public Rect GetCellPosition(Size wholeSize, Point<int> point)
         { return Cells.Get(point).GetPosition(wholeSize, DataContext.VisibleSize); }
     }

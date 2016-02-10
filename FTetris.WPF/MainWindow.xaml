@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FTetris.WPF"
         xmlns:viewModel="clr-namespace:FTetris.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="FTetris (Space: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left)" Height="720" Width="280"
+        Title="FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)" Height="720" Width="280"
         PreviewKeyDown="OnPreviewKeyDown">
     <Window.Resources>
         <viewModel:GameViewModel x:Key="viewModel" />

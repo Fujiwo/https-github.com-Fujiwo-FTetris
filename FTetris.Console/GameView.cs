@@ -24,7 +24,7 @@ namespace FTetris.Console
 
         static void Usage()
         {
-            const string usage = "FTetris (Space: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left)";
+            const string usage = "FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)";
             ConsoleWriter.WriteLine(usage);
         }
 
@@ -37,7 +37,8 @@ namespace FTetris.Console
                     case ConsoleKey.RightArrow: game.MoveRight(     ); break;
                     case ConsoleKey.UpArrow   : game.Turn     (     ); break;  
                     case ConsoleKey.DownArrow : game.Turn     (false); break;  
-                    case ConsoleKey.Spacebar  : Start         (     ); break;  
+                    case ConsoleKey.Spacebar  : game.Drop     (     ); break;  
+                    case ConsoleKey.Enter     : Start         (     ); break;  
                 }
             }
         }

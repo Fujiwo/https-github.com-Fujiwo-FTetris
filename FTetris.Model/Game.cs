@@ -36,5 +36,8 @@ namespace FTetris.Model
 
         public bool Turn(bool clockwise = true)
         { return Board.Turn(clockwise); }
+
+        public void Drop()
+        { Board.Drop(); }
     }
 }

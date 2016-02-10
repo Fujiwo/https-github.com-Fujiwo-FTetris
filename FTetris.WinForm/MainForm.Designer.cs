@@ -76,7 +76,7 @@
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.gameBoardView);
             this.Name = "MainForm";
-            this.Text = "FTetris(Space: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left)";
+            this.Text = "FTetris(Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)";
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
             this.ResumeLayout(false);

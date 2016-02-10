@@ -82,12 +82,31 @@ namespace FTetris.Model
         }
 
         public void Step()
+        { Down(); }
+
+        public bool MoveLeft()
+        { return MoveLeft(currentPentomino); }
+
+        public bool MoveRight()
+        { return MoveRight(currentPentomino); }
+
+        public bool Turn(bool clockwise = true)
+        { return Turn(currentPentomino, clockwise); }
+
+        public void Drop()
         {
-            if (!Down(currentPentomino)) {
-                Try();
-                if (!PlaceNextPentomino())
-                    GameOver?.Invoke();
-            }
+            while (Down())
+                ;
+        }
+
+        bool Down()
+        {
+            if (Down(currentPentomino))
+                return true;
+            Try();
+            if (!PlaceNextPentomino())
+                GameOver?.Invoke();
+            return false;
         }
 
         void Try()
@@ -116,15 +135,6 @@ namespace FTetris.Model
                 Enumerable.Range(0, cellsClone.GetLength(0)).ForEach(x => cellsClone[x, yIndex] = cellsClone[x, yIndex - 1]);
             Enumerable.Range(0, cellsClone.GetLength(0)).ForEach(x => cellsClone[x, 0] = 0);
         }
-
-        public bool MoveLeft()
-        { return MoveLeft(currentPentomino); }
-
-        public bool MoveRight()
-        { return MoveRight(currentPentomino); }
-
-        public bool Turn(bool clockwise = true)
-        { return Turn(currentPentomino, clockwise); }
 
         bool Place(Tetromono polyomino)
         {

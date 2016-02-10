@@ -23,7 +23,8 @@ namespace FTetris.WPF
                 case Key.Right: DataContext.MoveRight(     ); break;
                 case Key.Up   : DataContext.Turn     (     ); break;
                 case Key.Down : DataContext.Turn     (false); break;
-                case Key.Space: DataContext.Start    (     ); break;
+                case Key.Space: DataContext.Drop     (     ); break;
+                case Key.Enter: DataContext.Start    (     ); break;
             }
         }
 
