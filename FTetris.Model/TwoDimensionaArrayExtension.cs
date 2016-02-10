@@ -62,8 +62,8 @@ namespace FTetris.Model
                    select new Point<int> { X = x, Y = y };
         }
 
-        public static IEnumerable<PointedItem<T>> SelectMany<T>(this T[,] @this)
-        { return @this.AllPoints().Select(point => new PointedItem<T> { Point = point, Item = @this.Get(point) } ); }
+        public static IEnumerable<Tuple<Point<int>, T>> SelectMany<T>(this T[,] @this)
+        { return @this.AllPoints().Select(point => new Tuple<Point<int>, T>(point, @this.Get(point))); }
 
         public static T[,] Turn<T>(this T[,] @this, bool clockwise = true)
         {
@@ -76,6 +76,6 @@ namespace FTetris.Model
         public static bool IsEqual<T>(this T[,] @this, T[,] array)
         { return @this.GetLength(0) == array.GetLength(0) &&
                  @this.GetLength(1) == array.GetLength(1) &&
-                 @this.SelectMany().All(pointedItem => pointedItem.Item.Equals(array.Get(pointedItem.Point))); }
+                 @this.SelectMany().All(pointedItem => pointedItem.Item2.Equals(array.Get(pointedItem.Item1))); }
     }
 }
