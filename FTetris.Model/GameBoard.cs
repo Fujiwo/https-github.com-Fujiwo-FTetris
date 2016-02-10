@@ -69,6 +69,8 @@ namespace FTetris.Model
 
         Tetromono currentPentomino = new Tetromono();
 
+        bool IsStarted { get; set; } = false;
+
         public GameBoard()
         { scoreBoard.ScoreUpdated += score => ScoreUpdated?.Invoke(score); }
 
@@ -78,24 +80,34 @@ namespace FTetris.Model
             NextPentomino = new Tetromono();
             Place(currentPentomino);
             scoreBoard.Reset();
+            IsStarted = true;
             GameStarted?.Invoke();
         }
 
         public void Step()
-        { Down(); }
+        {
+            if (IsStarted)
+                Down();
+        }
 
         public bool MoveLeft()
-        { return MoveLeft(currentPentomino); }
+        { return IsStarted && MoveLeft(currentPentomino); }
 
         public bool MoveRight()
-        { return MoveRight(currentPentomino); }
+        { return IsStarted && MoveRight(currentPentomino); }
 
         public bool Turn(bool clockwise = true)
-        { return Turn(currentPentomino, clockwise); }
+        { return IsStarted && Turn(currentPentomino, clockwise); }
+
+        void End()
+        {
+            IsStarted = false;
+            GameOver?.Invoke();
+        }
 
         public void Drop()
         {
-            while (Down())
+            while (IsStarted && Down())
                 ;
         }
 
@@ -105,7 +117,7 @@ namespace FTetris.Model
                 return true;
             Try();
             if (!PlaceNextPentomino())
-                GameOver?.Invoke();
+                End();
             return false;
         }
 
