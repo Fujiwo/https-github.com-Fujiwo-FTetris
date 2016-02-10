@@ -4,46 +4,48 @@ using System.Linq;
 
 namespace FTetris.Model
 {
-    class ScoreBoard
+    public class GameBoard : MaskedStatefulCellBoard
     {
-        public event Action<int> ScoreUpdated;
+        class ScoreBoard
+        {
+            public event Action<int> ScoreUpdated;
 
-        const int defaultScorePoint = 10;
+            const int defaultScorePoint = 10;
 
-        int scorePoint;
-        int score     ;
+            int scorePoint;
+            int score;
 
-        public int Score {
-            get { return score; }
-            private set {
-                if (value != score) {
-                    score = value;
-                    ScoreUpdated?.Invoke(value);
+            public int Score
+            {
+                get { return score; }
+                private set
+                {
+                    if (value != score) {
+                        score = value;
+                        ScoreUpdated?.Invoke(value);
+                    }
                 }
+            }
+
+            public ScoreBoard()
+            { Reset(); }
+
+            public void Reset()
+            {
+                Score = 0;
+                scorePoint = defaultScorePoint;
+            }
+
+            public void StartAdding()
+            { scorePoint = defaultScorePoint; }
+
+            public void Add()
+            {
+                Score += scorePoint;
+                scorePoint *= 2;
             }
         }
 
-        public ScoreBoard()
-        { Reset(); }
-
-        public void Reset()
-        {
-            Score      = 0;
-            scorePoint = defaultScorePoint;
-        }
-
-        public void StartAdding()
-        { scorePoint = defaultScorePoint; }
-
-        public void Add()
-        {
-            Score += scorePoint;
-            scorePoint *= 2;
-        }
-    }
-
-    public class GameBoard : MaskedStatefulCellBoard
-    {
         public event Action            GameStarted     ;
         public event Action            GameOver        ;
         public event Action<Pentomino> NextPentominoSet;
@@ -105,10 +107,7 @@ namespace FTetris.Model
         IEnumerable<int> GetFullRows()
         {
             return Enumerable.Range(0, Cells.GetLength(1))
-                             .Where(y => {
-                                        var row = Cells.GetRow(y);
-                                        return row.Any(cell => cell.StateIndex != 0) && row.IsEven(cell => cell.StateIndex);
-                                    });
+                             .Where(y => Cells.GetRow(y).All(cell => cell.StateIndex != 0));
         }
 
         static void RemoveRow(int[,] cellsClone, int y)
