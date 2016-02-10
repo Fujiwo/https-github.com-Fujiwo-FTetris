@@ -16,12 +16,13 @@ namespace FTetris.WPF.ViewModel
                 Colors.Blue   ,
                 Colors.Magenta,
                 Colors.Cyan   ,
-                Color.FromRgb(r: 0xff, g: 0x80, b: 0x00),
-                Color.FromRgb(r: 0xff, g: 0x00, b: 0x80),
-                Color.FromRgb(r: 0x00, g: 0xff, b: 0x80),
-                Color.FromRgb(r: 0x80, g: 0xff, b: 0x00),
-                Color.FromRgb(r: 0x80, g: 0x00, b: 0xff),
-                Color.FromRgb(r: 0x00, g: 0x80, b: 0xff)
+                Colors.White
+                //Color.FromRgb(r: 0xff, g: 0x80, b: 0x00),
+                //Color.FromRgb(r: 0xff, g: 0x00, b: 0x80),
+                //Color.FromRgb(r: 0x00, g: 0xff, b: 0x80),
+                //Color.FromRgb(r: 0x80, g: 0xff, b: 0x00),
+                //Color.FromRgb(r: 0x80, g: 0x00, b: 0xff),
+                //Color.FromRgb(r: 0x00, g: 0x80, b: 0xff)
             };
 
             static readonly Brush[] brushes;

@@ -38,8 +38,8 @@ namespace FTetris.WinForm
             var height = wholeSize.Height / wholeNumber.Height;
             return new Rectangle(x     : width  * point.X,
                                  y     : height * point.Y,
-                                 width : width,
-                                 height: height);
+                                 width : width           ,
+                                 height: height          );
         }
 
         public void Paint(Graphics graphics)

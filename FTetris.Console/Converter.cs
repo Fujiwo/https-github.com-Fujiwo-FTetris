@@ -19,12 +19,13 @@ namespace FTetris.Console
                 ConsoleColor.Blue       ,
                 ConsoleColor.Magenta    ,
                 ConsoleColor.Cyan       ,
-                ConsoleColor.DarkRed    ,
-                ConsoleColor.DarkGreen  ,
-                ConsoleColor.DarkYellow ,
-                ConsoleColor.DarkBlue   ,
-                ConsoleColor.DarkMagenta,
-                ConsoleColor.DarkCyan
+                ConsoleColor.White
+                //ConsoleColor.DarkRed    ,
+                //ConsoleColor.DarkGreen  ,
+                //ConsoleColor.DarkYellow ,
+                //ConsoleColor.DarkBlue   ,
+                //ConsoleColor.DarkMagenta,
+                //ConsoleColor.DarkCyan
             };
 
             public static int ColorNumber { get { return colors.Length; } }

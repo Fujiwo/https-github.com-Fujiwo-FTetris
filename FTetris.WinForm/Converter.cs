@@ -16,12 +16,13 @@ namespace FTetris.WinForm
                 Color.Blue   ,
                 Color.Magenta,
                 Color.Cyan   ,
-                Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x80, blue: 0x00),
-                Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x00, blue: 0x80),
-                Color.FromArgb(alpha: 0xff, red: 0x00, green: 0xff, blue: 0x80),
-                Color.FromArgb(alpha: 0xff, red: 0x80, green: 0xff, blue: 0x00),
-                Color.FromArgb(alpha: 0xff, red: 0x80, green: 0x00, blue: 0xff),
-                Color.FromArgb(alpha: 0xff, red: 0x00, green: 0x80, blue: 0xff)
+                Color.White
+                //Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x80, blue: 0x00),
+                //Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x00, blue: 0x80),
+                //Color.FromArgb(alpha: 0xff, red: 0x00, green: 0xff, blue: 0x80),
+                //Color.FromArgb(alpha: 0xff, red: 0x80, green: 0xff, blue: 0x00),
+                //Color.FromArgb(alpha: 0xff, red: 0x80, green: 0x00, blue: 0xff),
+                //Color.FromArgb(alpha: 0xff, red: 0x00, green: 0x80, blue: 0xff)
             };
 
             static readonly Brush[] brushes;
