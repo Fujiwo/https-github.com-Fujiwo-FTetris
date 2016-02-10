@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="FTetris.WPF.GameBoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FTetris.WPF"
+             xmlns:model="clr-namespace:FTetris.Model;assembly=FTetris.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="Transparent" PreviewKeyDown="OnPreviewKeyDown">
+    <Grid x:Name="panel">
+        <ItemsControl ItemsSource="{Binding Items}" SizeChanged="OnSizeChanged" Background="Aqua">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <Border BorderThickness="1" BorderBrush="Black" Background="Azure">
+                        <ItemsPresenter Margin="1" />
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle Margin="{Binding Margin}" Width="{Binding Position.Width}" Height="{Binding Position.Height}" Fill="{Binding Color}" Stroke="Black" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
