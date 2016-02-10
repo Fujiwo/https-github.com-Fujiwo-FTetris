@@ -23,7 +23,7 @@ namespace FTetris.WinForm
 
             game .GameStarted      += ()          => timer.Start();
             game .GameOver         += ()          => timer.Stop ();
-            game .NextPentominoSet += pentomino   => nextPentominoStatusLabel.Text = pentomino.ShapeKind.ToString();
+            game .NextPentominoSet += polyomino   => nextPentominoStatusLabel.Text = polyomino.ShapeKind.ToString();
             game .ScoreUpdated     += score       => scoreStatusLabel        .Text = score              .ToString();
         }
     }

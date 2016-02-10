@@ -1,10 +1,11 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FTetris.Model
 {
-    public class Pentomino
+    public class Pentomino : Polyomino
     {
         static Random random = new Random();
 
@@ -129,7 +130,7 @@ namespace FTetris.Model
             var placeablePoints = PlaceablePoints(shape, cellsClone, position);
             if (placeablePoints == null)
                 return false;
-            placeablePoints.ForEach(point => cellsClone.Set(Pentomino.GetPosition(position, point), (int)ShapeKind));
+            placeablePoints.ForEach(point => cellsClone.Set(Tetromono.GetPosition(position, point), (int)ShapeKind));
             Position = position;
             return true;
         }
@@ -145,7 +146,7 @@ namespace FTetris.Model
             var placeablePoints = PlaceablePoints(newShape, cellsClone, Position);
             if (placeablePoints == null)
                 return false;
-            placeablePoints.ForEach(point => cellsClone.Set(Pentomino.GetPosition(Position, point), (int)ShapeKind));
+            placeablePoints.ForEach(point => cellsClone.Set(Tetromono.GetPosition(Position, point), (int)ShapeKind));
             shape = newShape;
             return true;
         }
@@ -162,3 +163,4 @@ namespace FTetris.Model
         { return (ShapeType)(random.Next(table.Count) + 1); }
     }
 }
+ */

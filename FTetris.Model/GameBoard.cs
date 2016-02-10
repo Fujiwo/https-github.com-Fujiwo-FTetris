@@ -48,16 +48,16 @@ namespace FTetris.Model
 
         public event Action            GameStarted     ;
         public event Action            GameOver        ;
-        public event Action<Pentomino> NextPentominoSet;
+        public event Action<Tetromono> NextPentominoSet;
         public event Action<int      > ScoreUpdated    ;
 
         ScoreBoard scoreBoard = new ScoreBoard();
 
         public int Score => scoreBoard.Score;
 
-        Pentomino nextPentomino;
+        Tetromono nextPentomino;
 
-        public Pentomino NextPentomino {
+        public Tetromono NextPentomino {
             get { return nextPentomino; }
             private set {
                 if (value != nextPentomino) {
@@ -67,7 +67,7 @@ namespace FTetris.Model
             }
         }
 
-        Pentomino currentPentomino = new Pentomino();
+        Tetromono currentPentomino = new Tetromono();
 
         public GameBoard()
         { scoreBoard.ScoreUpdated += score => ScoreUpdated?.Invoke(score); }
@@ -75,7 +75,7 @@ namespace FTetris.Model
         public void Start()
         {
             Clear();
-            NextPentomino = new Pentomino();
+            NextPentomino = new Tetromono();
             Place(currentPentomino);
             scoreBoard.Reset();
             GameStarted?.Invoke();
@@ -126,27 +126,27 @@ namespace FTetris.Model
         public bool Turn(bool clockwise = true)
         { return Turn(currentPentomino, clockwise); }
 
-        bool Place(Pentomino pentomino)
+        bool Place(Tetromono polyomino)
         {
-            var position = new Point<int> { X = (Size.Width - pentomino.Width) / 2, Y = 0 };
+            var position = new Point<int> { X = (Size.Width - polyomino.Width) / 2, Y = 0 };
             var cellsClone = CellsClone;
-            if (pentomino.Place(cellsClone, position)) {
+            if (polyomino.Place(cellsClone, position)) {
                 CellsClone = cellsClone;
                 return true;
             }
             return false;
         }
 
-        bool Down(Pentomino pentomino)
-        { return Move(new Point<int> { X = pentomino.Position.X, Y = pentomino.Position.Y + 1 }, pentomino); }
+        bool Down(Tetromono polyomino)
+        { return Move(new Point<int> { X = polyomino.Position.X, Y = polyomino.Position.Y + 1 }, polyomino); }
 
-        bool MoveLeft(Pentomino pentomino)
-        { return Move(new Point<int> { X = pentomino.Position.X - 1, Y = pentomino.Position.Y }, pentomino); }
+        bool MoveLeft(Tetromono polyomino)
+        { return Move(new Point<int> { X = polyomino.Position.X - 1, Y = polyomino.Position.Y }, polyomino); }
 
-        bool MoveRight(Pentomino pentomino)
-        { return Move(new Point<int> { X = pentomino.Position.X + 1, Y = pentomino.Position.Y }, pentomino); }
+        bool MoveRight(Tetromono polyomino)
+        { return Move(new Point<int> { X = polyomino.Position.X + 1, Y = polyomino.Position.Y }, polyomino); }
 
-        bool Turn(Pentomino currentPentomino, bool clockwise = true)
+        bool Turn(Tetromono currentPentomino, bool clockwise = true)
         {
             var cellsClone = CellsClone;
             if (currentPentomino.Turn(cellsClone, clockwise)) {
@@ -156,10 +156,10 @@ namespace FTetris.Model
             return false;
         }
 
-        bool Move(Point<int> position, Pentomino pentomino)
+        bool Move(Point<int> position, Tetromono polyomino)
         {
             var cellsClone = CellsClone;
-            if (pentomino.Move(cellsClone, position)) {
+            if (polyomino.Move(cellsClone, position)) {
                 CellsClone = cellsClone;
                 return true;
             }
@@ -170,7 +170,7 @@ namespace FTetris.Model
         {
             currentPentomino = NextPentomino;
             if (Place(currentPentomino)) {
-                NextPentomino = new Pentomino();
+                NextPentomino = new Tetromono();
                 return true;
             }
             return false;
