@@ -7,7 +7,7 @@ namespace FTetris.WPF.ViewModel
 {
     class GameViewModel : BindableBase
     {
-        const int interval = 200;
+        const int interval = 300;
 
         readonly Game            game  = new Game();
         readonly DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };

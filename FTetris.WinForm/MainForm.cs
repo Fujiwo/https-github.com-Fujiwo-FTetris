@@ -5,7 +5,7 @@ namespace FTetris.WinForm
 {
     public partial class MainForm : Form
     {
-        const int interval = 200;
+        const int interval = 300;
 
         readonly Game  game  = new Game ();
         readonly Timer timer = new Timer();
