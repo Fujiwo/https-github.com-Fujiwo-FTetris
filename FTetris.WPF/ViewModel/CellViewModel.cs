@@ -7,16 +7,16 @@ namespace FTetris.WPF.ViewModel
 {
     class CellViewModel : BindableBase
     {
-        StatefulCell dataContext = null;
+        Cell dataContext = null;
 
-        public StatefulCell DataContext {
+        public Cell DataContext {
             get { return dataContext; }
             set {
                 if (value != dataContext) {
                     if (dataContext != null)
-                        dataContext.StateChanged -= OnDataContextStateChanged;
+                        dataContext.IndexChanged -= OnDataContextIndexChanged;
                     dataContext = value;
-                    value.StateChanged += OnDataContextStateChanged;
+                    value.IndexChanged += OnDataContextIndexChanged;
                 }
             }
         }
@@ -26,7 +26,7 @@ namespace FTetris.WPF.ViewModel
         public Thickness Margin => new Thickness(left: Position.Left, top: Position.Top, right: 0.0, bottom: 0.0);
 
         public Brush Color {
-            get { return Converter.StateIndexToBrush(DataContext.StateIndex); }
+            get { return Converter.PolyominoIndexToBrush(DataContext.Index); }
         }
 
         public Rect GetPosition(Size wholeSize, Size<int> wholeNumber)
@@ -34,7 +34,7 @@ namespace FTetris.WPF.ViewModel
 
         public static Rect GetPosition(Size wholeSize, Size<int> wholeNumber, Point<int> point)
         {
-            var width = wholeSize.Width / wholeNumber.Width;
+            var width  = wholeSize.Width  / wholeNumber.Width;
             var height = wholeSize.Height / wholeNumber.Height;
             return new Rect(x     : width  * point.X,
                             y     : height * point.Y,
@@ -42,7 +42,7 @@ namespace FTetris.WPF.ViewModel
                             height: height          );
         }
 
-        void OnDataContextStateChanged(StatefulCell cell, int stateIndex)
+        void OnDataContextIndexChanged(Cell cell, PolyominoIndex polyominoIndex)
         { OnPropertyChanged(() => Color); }
     }
 }

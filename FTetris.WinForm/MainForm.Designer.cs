@@ -28,7 +28,7 @@
         private void InitializeComponent()
         {
             this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.nextPentominoStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.nextPolyominoStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.scoreStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.gameBoardView = new FTetris.WinForm.GameBoardView();
             this.statusBar.SuspendLayout();
@@ -38,7 +38,7 @@
             // 
             this.statusBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nextPentominoStatusLabel,
+            this.nextPolyominoStatusLabel,
             this.scoreStatusLabel});
             this.statusBar.Location = new System.Drawing.Point(0, 0);
             this.statusBar.Name = "statusBar";
@@ -46,10 +46,10 @@
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 1;
             // 
-            // nextPentominoStatusLabel
+            // nextPolyominoStatusLabel
             // 
-            this.nextPentominoStatusLabel.Name = "nextPentominoStatusLabel";
-            this.nextPentominoStatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.nextPolyominoStatusLabel.Name = "nextPolyominoStatusLabel";
+            this.nextPolyominoStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // scoreStatusLabel
             // 
@@ -88,7 +88,7 @@
 
         private GameBoardView gameBoardView;
         private System.Windows.Forms.StatusStrip statusBar;
-        private System.Windows.Forms.ToolStripStatusLabel nextPentominoStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel nextPolyominoStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel scoreStatusLabel;
     }
 }

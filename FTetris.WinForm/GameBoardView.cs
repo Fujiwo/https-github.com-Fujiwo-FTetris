@@ -32,7 +32,7 @@ namespace FTetris.WinForm
             gameBoard.VisibleCells.ForEach((point, cell) =>
             {
                 var cellView = new CellView { Point = point, DataContext = cell };
-                cellView.StateChanged += OnCellViewStateChanged;
+                cellView.IndexChanged += OnCellViewIndexChanged;
                 Cells.Set(point, cellView);
             });
         }
@@ -52,7 +52,7 @@ namespace FTetris.WinForm
         void OnPaint(object sender, PaintEventArgs e)
         { Cells?.ToSequence()?.ForEach(cell => cell.Paint(e.Graphics)); }
 
-        void OnCellViewStateChanged(CellView cellView)
+        void OnCellViewIndexChanged(CellView cellView)
         {
             using (var graphics = CreateGraphics()) {
                 cellView.Paint(graphics);

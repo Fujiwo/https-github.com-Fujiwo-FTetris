@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FTetris.Model
 {
-    public class GameBoard : MaskedStatefulCellBoard
+    public class GameBoard : MaskedCellBoard
     {
         class ScoreBoard
         {
@@ -18,8 +18,7 @@ namespace FTetris.Model
             public int Score
             {
                 get { return score; }
-                private set
-                {
+                private set {
                     if (value != score) {
                         score = value;
                         ScoreUpdated?.Invoke(value);
@@ -32,7 +31,7 @@ namespace FTetris.Model
 
             public void Reset()
             {
-                Score = 0;
+                Score      = 0;
                 scorePoint = defaultScorePoint;
             }
 
@@ -41,33 +40,33 @@ namespace FTetris.Model
 
             public void Add()
             {
-                Score += scorePoint;
-                scorePoint *= 2;
+                Score      += scorePoint;
+                scorePoint *= 2         ;
             }
         }
 
         public event Action            GameStarted     ;
         public event Action            GameOver        ;
-        public event Action<Tetromono> NextPentominoSet;
+        public event Action<Tetromono> NextPolyominoSet;
         public event Action<int      > ScoreUpdated    ;
 
         ScoreBoard scoreBoard = new ScoreBoard();
 
         public int Score => scoreBoard.Score;
 
-        Tetromono nextPentomino;
+        Tetromono nextPolyomino;
 
-        public Tetromono NextPentomino {
-            get { return nextPentomino; }
+        public Tetromono NextPolyomino {
+            get { return nextPolyomino; }
             private set {
-                if (value != nextPentomino) {
-                    nextPentomino = value;
-                    NextPentominoSet?.Invoke(nextPentomino);
+                if (value != nextPolyomino) {
+                    nextPolyomino = value;
+                    NextPolyominoSet?.Invoke(nextPolyomino);
                 }
             }
         }
 
-        Tetromono currentPentomino = new Tetromono();
+        Tetromono currentPolyomino = new Tetromono();
 
         bool IsStarted { get; set; } = false;
 
@@ -77,8 +76,8 @@ namespace FTetris.Model
         public void Start()
         {
             Clear();
-            NextPentomino = new Tetromono();
-            Place(currentPentomino);
+            NextPolyomino = new Tetromono();
+            Place(currentPolyomino);
             scoreBoard.Reset();
             IsStarted = true;
             GameStarted?.Invoke();
@@ -91,13 +90,13 @@ namespace FTetris.Model
         }
 
         public bool MoveLeft()
-        { return IsStarted && MoveLeft(currentPentomino); }
+        { return IsStarted && MoveLeft(currentPolyomino); }
 
         public bool MoveRight()
-        { return IsStarted && MoveRight(currentPentomino); }
+        { return IsStarted && MoveRight(currentPolyomino); }
 
         public bool Turn(bool clockwise = true)
-        { return IsStarted && Turn(currentPentomino, clockwise); }
+        { return IsStarted && Turn(currentPolyomino, clockwise); }
 
         void End()
         {
@@ -113,10 +112,10 @@ namespace FTetris.Model
 
         bool Down()
         {
-            if (Down(currentPentomino))
+            if (Down(currentPolyomino))
                 return true;
             Try();
-            if (!PlaceNextPentomino())
+            if (!PlaceNextPolyomino())
                 End();
             return false;
         }
@@ -138,10 +137,10 @@ namespace FTetris.Model
         IEnumerable<int> GetFullRows()
         {
             return Enumerable.Range(0, Cells.GetLength(1))
-                             .Where(y => Cells.GetRow(y).All(cell => cell.StateIndex != 0));
+                             .Where(y => Cells.GetRow(y).All(cell => cell.Index != 0));
         }
 
-        static void RemoveRow(int[,] cellsClone, int y)
+        static void RemoveRow(PolyominoIndex[,] cellsClone, int y)
         {
             for (var yIndex = y; yIndex > 0; yIndex--)
                 Enumerable.Range(0, cellsClone.GetLength(0)).ForEach(x => cellsClone[x, yIndex] = cellsClone[x, yIndex - 1]);
@@ -168,10 +167,10 @@ namespace FTetris.Model
         bool MoveRight(Tetromono polyomino)
         { return Move(new Point<int> { X = polyomino.Position.X + 1, Y = polyomino.Position.Y }, polyomino); }
 
-        bool Turn(Tetromono currentPentomino, bool clockwise = true)
+        bool Turn(Tetromono currentPolyomino, bool clockwise = true)
         {
             var cellsClone = CellsClone;
-            if (currentPentomino.Turn(cellsClone, clockwise)) {
+            if (currentPolyomino.Turn(cellsClone, clockwise)) {
                 CellsClone = cellsClone;
                 return true;
             }
@@ -188,11 +187,11 @@ namespace FTetris.Model
             return false;
         }
 
-        bool PlaceNextPentomino()
+        bool PlaceNextPolyomino()
         {
-            currentPentomino = NextPentomino;
-            if (Place(currentPentomino)) {
-                NextPentomino = new Tetromono();
+            currentPolyomino = NextPolyomino;
+            if (Place(currentPolyomino)) {
+                NextPolyomino = new Tetromono();
                 return true;
             }
             return false;

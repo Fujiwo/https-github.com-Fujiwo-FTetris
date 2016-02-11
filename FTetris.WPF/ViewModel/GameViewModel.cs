@@ -14,11 +14,11 @@ namespace FTetris.WPF.ViewModel
 
         public GameBoardViewModel GameBoardViewModel { get; private set; }
 
-        string nextPentomino = string.Empty;
+        string nextPolyomino = string.Empty;
 
-        public string NextPentomino {
-            get { return nextPentomino; }
-            set { SetProperty(ref nextPentomino, value); }
+        public string NextPolyomino {
+            get { return nextPolyomino; }
+            set { SetProperty(ref nextPolyomino, value); }
         }
 
         string score = "0";
@@ -40,8 +40,8 @@ namespace FTetris.WPF.ViewModel
 
             game.GameStarted      += ()            => timer.Start();
             game.GameOver         += ()            => timer.Stop ();
-            game.NextPentominoSet += nextPentomino => NextPentomino = nextPentomino.ShapeKind.ToString();
-            game.ScoreUpdated     += score         => Score         = score                  .ToString();
+            game.NextPolyominoSet += nextPolyomino => NextPolyomino = nextPolyomino.Index.ToString();
+            game.ScoreUpdated     += score         => Score         = score              .ToString();
         }
     }
 }

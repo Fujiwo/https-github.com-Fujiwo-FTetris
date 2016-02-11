@@ -6,18 +6,18 @@ namespace FTetris.WinForm
 {
     class CellView
     {
-        public event Action<CellView> StateChanged;
+        public event Action<CellView> IndexChanged;
 
-        StatefulCell dataContext = null;
+        Cell dataContext = null;
 
-        public StatefulCell DataContext {
+        public Cell DataContext {
             get { return dataContext; }
             set {
                 if (value != dataContext) {
                     if (dataContext != null)
-                        dataContext.StateChanged -= OnDataContextStateChanged;
+                        dataContext.IndexChanged -= OnDataContextIndexChanged;
                     dataContext = value;
-                    value.StateChanged += OnDataContextStateChanged;
+                    value.IndexChanged += OnDataContextIndexChanged;
                 }
             }
         }
@@ -26,7 +26,7 @@ namespace FTetris.WinForm
         public Rectangle Position { get; set; }
 
         public Brush Color {
-            get { return Converter.StateIndexToBrush(DataContext.StateIndex); }
+            get { return Converter.PolyominoIndexToBrush(DataContext.Index); }
         }
 
         public Rectangle GetPosition(Size wholeSize, Size<int> wholeNumber)
@@ -45,7 +45,7 @@ namespace FTetris.WinForm
         public void Paint(Graphics graphics)
         { graphics.FillRectangle(Color, Position); }
 
-        void OnDataContextStateChanged(StatefulCell cell, int stateIndex)
-        { StateChanged?.Invoke(this); }
+        void OnDataContextIndexChanged(Cell cell, PolyominoIndex polyominoIndex)
+        { IndexChanged?.Invoke(this); }
     }
 }

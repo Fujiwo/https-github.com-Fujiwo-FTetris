@@ -33,8 +33,6 @@
     public static class GeometryExtension
     {
         public static Point<int> Add(this Point<int> @this, Point<int> point)
-        {
-            return new Point<int> { X = @this.X + point.X, Y = @this.Y + point.Y };
-        }
+        { return new Point<int> { X = @this.X + point.X, Y = @this.Y + point.Y }; }
     }
 }

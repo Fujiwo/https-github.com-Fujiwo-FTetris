@@ -14,6 +14,7 @@ namespace FTetris.WinForm
         {
             InitializeComponent();
             gameBoardView.DataContext = game.Board;
+            timer.Interval            = interval;
             SetHandlers();
         }
 
@@ -23,8 +24,8 @@ namespace FTetris.WinForm
 
             game .GameStarted      += ()          => timer.Start();
             game .GameOver         += ()          => timer.Stop ();
-            game .NextPentominoSet += polyomino   => nextPentominoStatusLabel.Text = polyomino.ShapeKind.ToString();
-            game .ScoreUpdated     += score       => scoreStatusLabel        .Text = score              .ToString();
+            game .NextPolyominoSet += polyomino   => nextPolyominoStatusLabel.Text = polyomino.Index.ToString();
+            game .ScoreUpdated     += score       => scoreStatusLabel        .Text = score          .ToString();
         }
     }
 }

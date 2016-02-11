@@ -6,19 +6,19 @@ namespace FTetris.Model
     {
         public event Action            GameStarted     ;
         public event Action            GameOver        ;
-        public event Action<Tetromono> NextPentominoSet;
+        public event Action<Tetromono> NextPolyominoSet;
         public event Action<int      > ScoreUpdated    ;
 
         public GameBoard Board { get; } = new GameBoard();
 
-        public Tetromono NextPentomino => Board.NextPentomino;
+        public Tetromono NextPolyomino => Board.NextPolyomino;
         public int Score => Board.Score;
 
         public Game()
         {
             Board.GameStarted      += ()        => GameStarted     ?.Invoke(         );
             Board.GameOver         += ()        => GameOver        ?.Invoke(         );
-            Board.NextPentominoSet += polyomino => NextPentominoSet?.Invoke(polyomino);
+            Board.NextPolyominoSet += polyomino => NextPolyominoSet?.Invoke(polyomino);
             Board.ScoreUpdated     += score     => ScoreUpdated    ?.Invoke(score    );
         }
 

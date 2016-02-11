@@ -29,7 +29,7 @@ namespace FTetris.Console
         }
 
         void WriteTitle()
-        { ConsoleWriter.WriteLine($"FTetris \tNext: {DataContext.NextPentomino.ShapeKind} \tPoint: {DataContext.Score}"); }
+        { ConsoleWriter.WriteLine($"FTetris \tNext: {DataContext.NextPolyomino.Index} \tPoint: {DataContext.Score}"); }
 
         void WriteGameBoard()
         { Enumerable.Range(0, Cells.GetLength(1)).ForEach(WriteLine); }

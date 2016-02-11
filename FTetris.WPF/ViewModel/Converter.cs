@@ -17,12 +17,6 @@ namespace FTetris.WPF.ViewModel
                 Colors.Magenta,
                 Colors.Cyan   ,
                 Colors.White
-                //Color.FromRgb(r: 0xff, g: 0x80, b: 0x00),
-                //Color.FromRgb(r: 0xff, g: 0x00, b: 0x80),
-                //Color.FromRgb(r: 0x00, g: 0xff, b: 0x80),
-                //Color.FromRgb(r: 0x80, g: 0xff, b: 0x00),
-                //Color.FromRgb(r: 0x80, g: 0x00, b: 0xff),
-                //Color.FromRgb(r: 0x00, g: 0x80, b: 0xff)
             };
 
             static readonly Brush[] brushes;
@@ -41,14 +35,14 @@ namespace FTetris.WPF.ViewModel
                 return colors[index];
             }
 
-            public static Brush ToBrush(int index)
+            public static Brush ToBrush(PolyominoIndex polyominoIndex)
             {
-                Contract.Assert(index >= 0 && index < ColorNumber);
-                return brushes[index];
+                Contract.Assert((int)polyominoIndex >= 0 && (int)polyominoIndex < ColorNumber);
+                return brushes[(int)polyominoIndex];
             }
         }
 
-        public static Brush StateIndexToBrush(int colorIndex)
-        { return Palette.ToBrush(colorIndex); }
+        public static Brush PolyominoIndexToBrush(PolyominoIndex polyominoIndex)
+        { return Palette.ToBrush(polyominoIndex); }
     }
 }

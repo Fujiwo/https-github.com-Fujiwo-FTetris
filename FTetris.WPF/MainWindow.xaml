@@ -17,7 +17,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding NextPentomino}" HorizontalAlignment="Left" Margin="10,0"/>
+            <TextBlock Text="{Binding NextPolyomino}" HorizontalAlignment="Left" Margin="10,0"/>
             <TextBlock Text="{Binding Score}" HorizontalAlignment="Right" Margin="10,0"/>
         </StackPanel>
         <Grid Grid.Row="1">

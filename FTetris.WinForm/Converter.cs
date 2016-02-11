@@ -17,12 +17,6 @@ namespace FTetris.WinForm
                 Color.Magenta,
                 Color.Cyan   ,
                 Color.White
-                //Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x80, blue: 0x00),
-                //Color.FromArgb(alpha: 0xff, red: 0xff, green: 0x00, blue: 0x80),
-                //Color.FromArgb(alpha: 0xff, red: 0x00, green: 0xff, blue: 0x80),
-                //Color.FromArgb(alpha: 0xff, red: 0x80, green: 0xff, blue: 0x00),
-                //Color.FromArgb(alpha: 0xff, red: 0x80, green: 0x00, blue: 0xff),
-                //Color.FromArgb(alpha: 0xff, red: 0x00, green: 0x80, blue: 0xff)
             };
 
             static readonly Brush[] brushes;
@@ -41,14 +35,14 @@ namespace FTetris.WinForm
                 return colors[index];
             }
 
-            public static Brush ToBrush(int index)
+            public static Brush ToBrush(PolyominoIndex polyominoIndex)
             {
-                Contract.Assert(index >= 0 && index < ColorNumber);
-                return brushes[index];
+                Contract.Assert((int)polyominoIndex >= 0 && (int)polyominoIndex < ColorNumber);
+                return brushes[(int)polyominoIndex];
             }
         }
 
-        public static Brush StateIndexToBrush(int colorIndex)
-        { return Palette.ToBrush(colorIndex); }
+        public static Brush PolyominoIndexToBrush(PolyominoIndex polyominoIndex)
+        { return Palette.ToBrush(polyominoIndex); }
     }
 }

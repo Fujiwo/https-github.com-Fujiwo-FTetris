@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FTetris.Model;
+using System;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FTetris.Console
 {
@@ -20,24 +17,18 @@ namespace FTetris.Console
                 ConsoleColor.Magenta    ,
                 ConsoleColor.Cyan       ,
                 ConsoleColor.White
-                //ConsoleColor.DarkRed    ,
-                //ConsoleColor.DarkGreen  ,
-                //ConsoleColor.DarkYellow ,
-                //ConsoleColor.DarkBlue   ,
-                //ConsoleColor.DarkMagenta,
-                //ConsoleColor.DarkCyan
             };
 
             public static int ColorNumber { get { return colors.Length; } }
 
-            public static ConsoleColor ToColor(int index)
+            public static ConsoleColor ToColor(PolyominoIndex polyominoIndex)
             {
-                Contract.Assert(index >= 0 && index < ColorNumber);
-                return colors[index];
+                Contract.Assert((int)polyominoIndex >= 0 && (int)polyominoIndex < ColorNumber);
+                return colors[(int)polyominoIndex];
             }
         }
 
-        public static ConsoleColor StateIndexToColor(int colorIndex)
-        { return Palette.ToColor(colorIndex); }
+        public static ConsoleColor PolyominoIndexToColor(PolyominoIndex polyominoIndex)
+        { return Palette.ToColor(polyominoIndex); }
     }
 }
