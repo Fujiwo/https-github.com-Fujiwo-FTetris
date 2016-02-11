@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.Console", "FTetris.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.ModelTests", "FTetris.ModelTests\FTetris.ModelTests.csproj", "{407E2CD1-28EC-47FF-AE1D-17FE740D1D3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.TS", "FTetris.TS\FTetris.TS.csproj", "{27439BB2-573F-4DD7-AEFF-408B5500ABB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{407E2CD1-28EC-47FF-AE1D-17FE740D1D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{407E2CD1-28EC-47FF-AE1D-17FE740D1D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{407E2CD1-28EC-47FF-AE1D-17FE740D1D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27439BB2-573F-4DD7-AEFF-408B5500ABB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27439BB2-573F-4DD7-AEFF-408B5500ABB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27439BB2-573F-4DD7-AEFF-408B5500ABB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27439BB2-573F-4DD7-AEFF-408B5500ABB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
