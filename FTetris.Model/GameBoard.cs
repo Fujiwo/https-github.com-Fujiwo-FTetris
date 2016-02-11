@@ -149,7 +149,7 @@ namespace FTetris.Model
 
         bool Place(Tetromono polyomino)
         {
-            var position = new Point<int> { X = (Size.Width - polyomino.Width) / 2, Y = 0 };
+            var position = new Point<int> { X = (Size.Width - polyomino.Size.Width) / 2, Y = 0 };
             var cellsClone = CellsClone;
             if (polyomino.Place(cellsClone, position)) {
                 CellsClone = cellsClone;

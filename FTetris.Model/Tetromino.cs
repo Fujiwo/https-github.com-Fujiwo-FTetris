@@ -49,21 +49,16 @@ namespace FTetris.Model
                                          { false, false, false, false }},
         };
 
-        public int Width
-        {
-            get { return shape.GetLength(0); }
-        }
-
-        public int Height
-        {
-            get { return shape.GetLength(1); }
-        }
-
         public Point<int> Position { get; set; }
+
+        public Size<int> Size
+        {
+            get { return shape.Size(); }
+        }
 
         public Tetromono()
         {
-            Index = GetRandomShapeType();
+            Index = GetRandomPolyominoIndex();
             shape     = (bool[,])table[Index].Clone();
         }
 
@@ -126,7 +121,7 @@ namespace FTetris.Model
             return exsitingPoints.Count == placeablePoints.Count ? placeablePoints : null;
         }
 
-        PolyominoIndex GetRandomShapeType()
+        PolyominoIndex GetRandomPolyominoIndex()
         { return (PolyominoIndex)(random.Next(table.Count) + 1); }
     }
 }
