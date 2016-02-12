@@ -1,6 +1,6 @@
 ﻿/// <reference path="scripts/typings/threejs/three.d.ts" />
 
-namespace FK.Lib {
+namespace FTetris.Model {
     const INTEGER32_MAXVALUE = 2147483647.0;
 
     export class Random {
@@ -151,15 +151,45 @@ namespace FK.Lib {
             this.onRender();
         }
     }
+
+    class Point {
+    }
 }
 
-namespace RandomTest {
+
+namespace FTetris.View {
     const CAMERA_DISTANCE = 10.0;
     const CUBE_SIZE = CAMERA_DISTANCE * 0.75;
     const POINT_NUMBER = 100000;
     const POINT_SIZE = 0.01;
 
-    export class MyScene extends FK.Lib.Scene {
+    class CellView {
+        public static create(position: THREE.Vector3, size: number, color: number): THREE.Mesh {
+            return null;
+        }
+
+        private static createCube(position: THREE.Vector3, size: number, color: number): THREE.Mesh {
+            var cube = new THREE.Mesh(new THREE.CubeGeometry(size, size, size),
+                new THREE.MeshPhongMaterial({ color: color, specular: 0xffffff, shininess: 30.0, transparent: true, opacity: 0.75 }));
+            cube.position = position;
+            return cube;
+        }
+    }
+
+    export class MyScene extends FTetris.Model.Scene {
+        public onKeyDown(keyCode: number): void {
+            var keys = {
+                13: 'enter',
+                32: 'space',
+                37: 'left' ,
+                38: 'up'   ,
+                39: 'right',
+                40: 'down'
+            };
+            if (typeof keys[keyCode] != 'undefined') {
+                alert(keys[keyCode]);
+            }
+        }
         //private cameraAngle: number;
 
         protected createCamera(): THREE.PerspectiveCamera {
@@ -177,8 +207,9 @@ namespace RandomTest {
         }
 
         protected createObjects(): THREE.Object3D[] {
+                       
             var cube = new THREE.Mesh(new THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE),
-                new THREE.MeshPhongMaterial({ color: 0x888888, specular: 0xffffff, shininess: 5.0, transparent: true, opacity: 0.25 }));
+                new THREE.MeshPhongMaterial({ color: 0x888888, specular: 0xffffff, shininess: 5.0, transparent: true, opacity: 0.50 }));
             return [cube, MyScene.createPoints(CUBE_SIZE)];
         }
 
@@ -205,11 +236,11 @@ namespace RandomTest {
         private static getCameraAngle(camera: THREE.Camera): number {
             return camera.position.x == 0.0 && camera.position.z == 0.0
                 ? 0.0
-                : FK.Lib.Mathematics.radianToDegree(Math.atan2(camera.position.x, camera.position.z));
+                : FTetris.Model.Mathematics.radianToDegree(Math.atan2(camera.position.x, camera.position.z));
         }
 
         private static setCameraAngle(camera: THREE.Camera, cameraAngle: number): void {
-            let radian = FK.Lib.Mathematics.degreeToRadian(cameraAngle);
+            let radian = FTetris.Model.Mathematics.degreeToRadian(cameraAngle);
             let cameraDistance = MyScene.getCameraDistance(camera);
             camera.position.x = cameraDistance * Math.sin(radian);
             camera.position.z = cameraDistance * Math.cos(radian);
@@ -232,9 +263,9 @@ namespace RandomTest {
 
         private static getRandomVector3(size: number): THREE.Vector3 {
             return new THREE.Vector3(
-                FK.Lib.Mathematics.getRandomNumber(-size, size),
-                FK.Lib.Mathematics.getRandomNumber(-size, size),
-                FK.Lib.Mathematics.getRandomNumber(-size, size)
+                FTetris.Model.Mathematics.getRandomNumber(-size, size),
+                FTetris.Model.Mathematics.getRandomNumber(-size, size),
+                FTetris.Model.Mathematics.getRandomNumber(-size, size)
             );
         }
 
@@ -244,11 +275,17 @@ namespace RandomTest {
     }
 
     export class Application {
+        myScene: MyScene = null;
+
         public constructor() {
+            document.addEventListener("keydown", e => {
+                if (this.myScene != null)
+                    this.myScene.onKeyDown(e.keyCode);
+            });
             document.addEventListener("DOMContentLoaded",
-                () => new MyScene(document.getElementById("canvas")));
+                () => this.myScene = new MyScene(document.getElementById("canvas")));
         }
     }
 }
 
-new RandomTest.Application();
+new FTetris.View.Application();

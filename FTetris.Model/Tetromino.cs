@@ -46,7 +46,7 @@ namespace FTetris.Model
             [PolyominoIndex.L] = new[,] {{ false, false, false, false },
                                          { true , true , true , false },
                                          { false, false, true , false },
-                                         { false, false, false, false }},
+                                         { false, false, false, false }}
         };
 
         public Point<int> Position { get; set; }

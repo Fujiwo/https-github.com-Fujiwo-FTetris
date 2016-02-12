@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace FTetris.Model
 {
-    public static class TwoDimensionaArrayExtension
-    {   
-        public static void ForEach<T>(this T[,] @this, Action<Point<int>, T> action)
-        { @this.AllPoints().ForEach(point => action(point, @this.Get(point))); }
+    public static class TwoDimensionalArrayExtension
+    {
+        public static IEnumerable<Point<int>> AllPoints<T>(this T[,] @this)
+        {
+            return from x in Enumerable.Range(0, @this.GetLength(0))
+                   from y in Enumerable.Range(0, @this.GetLength(1))
+                   select new Point<int> { X = x, Y = y };
+        }
 
         public static T Get<T>(this T[,] @this, Point<int> point)
         { return @this[point.X, point.Y]; }
@@ -20,7 +24,7 @@ namespace FTetris.Model
                 value = default(T);
                 return false;
             }
-            value = @this[point.X, point.Y];
+            value = @this.Get(point);
             return true;
         }
 
@@ -32,7 +36,7 @@ namespace FTetris.Model
             if (point.X < 0 || point.X > @this.GetUpperBound(0) ||
                 point.Y < 0 || point.Y > @this.GetUpperBound(1))
                 return false;
-            @this[point.X, point.Y] = value;
+            @this.Set(point, value);
             return true;
         }
 
@@ -52,15 +56,11 @@ namespace FTetris.Model
         { return new Size<int> { Width  = @this.GetLength(0),
                                  Height = @this.GetLength(1) }; }
 
+        public static void ForEach<T>(this T[,] @this, Action<Point<int>, T> action)
+        { @this.AllPoints().ForEach(point => action(point, @this.Get(point))); }
+
         public static IEnumerable<T> ToSequence<T>(this T[,] @this)
         { return @this.AllPoints().Select(point => @this.Get(point)); }
-
-        public static IEnumerable<Point<int>> AllPoints<T>(this T[,] @this)
-        {
-            return from x in Enumerable.Range(0, @this.GetLength(0))
-                   from y in Enumerable.Range(0, @this.GetLength(1))
-                   select new Point<int> { X = x, Y = y };
-        }
 
         public static IEnumerable<Tuple<Point<int>, T>> SelectMany<T>(this T[,] @this)
         { return @this.AllPoints().Select(point => new Tuple<Point<int>, T>(point, @this.Get(point))); }
@@ -74,8 +74,7 @@ namespace FTetris.Model
         }
 
         public static bool IsEqual<T>(this T[,] @this, T[,] array)
-        { return @this.GetLength(0) == array.GetLength(0) &&
-                 @this.GetLength(1) == array.GetLength(1) &&
+        { return @this.Size().Equals(array.Size()) &&
                  @this.SelectMany().All(pointedItem => pointedItem.Item2.Equals(array.Get(pointedItem.Item1))); }
     }
 }
