@@ -5,3 +5,8 @@
 span {
     font-style: italic;
 }
+
+canvas {
+    width : 90%;
+    height: 90%;
+}

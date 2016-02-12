@@ -3,13 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>TypeScript HTML App</title>
+    <title>FTetris</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="http://threejs.org/build/three.min.js"></script>
+    <script src="http://threejs.org/examples/js/Detector.js"></script>
+    <script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script src="app.js"></script>
 </head>
 <body>
-    <h1>TypeScript HTML App</h1>
-
-    <div id="content"></div>
+    <div><span>FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)</span></div>
+    <div><span id="score"></span> <span id="nextPolyomino"></span></div>
+    <div id="canvas"></div>
 </body>
 </html>
