@@ -2,21 +2,26 @@
     export class TwoDimensionalArray {
         public static create<T>(size: Size): T[][] {
             var array = new Array<Array<T>>(size.width);
-            array.forEach((value, index) => array[index] = new Array<T>(size.height));
+            for (var index = 0; index < size.width; index++)
+                array[index] = new Array<T>(size.height);
             return array;
         }
 
         public static allPoints<T>(array: T[][]): Point[] {
             var points = new Array<Point>();
-            array.forEach((yArray, x) => yArray.forEach((element, y) => points.push(new Point(x, y))));
+            for (var x = 0; x < array.length; x++) {
+                for (var y = 0; y < array[x].length; y++)
+                    points.push(new Point(x, y));
+            }
+            //array.forEach((yArray, x) => yArray.forEach((element, y) => points.push(new Point(x, y))));
             return points;
         }
 
         public static get<T>(array: T[][], point: Point): T { return array[point.x][point.y]; }
 
         public static tryGet<T>(array: T[][], point: Point): [boolean, T] {
-            return point.x < 0 || point.x > array         .length ||
-                   point.y < 0 || point.y > array[point.x].length
+            return point.x < 0 || point.x >= array.length ||
+                   point.y < 0 || point.y >= array[point.x].length
                    ? [false, null]
                    : [true, TwoDimensionalArray.get(array, point)];
         }
@@ -24,8 +29,8 @@
         public static set<T>(array: T[][], point: Point, value: T): void { array[point.x][point.y] = value; }
 
         public static trySet<T>(array: T[][], point: Point, value: T): boolean {
-            if (point.x < 0 || point.x > array.length ||
-                point.y < 0 || point.y > array[point.x].length)
+            if (point.x < 0 || point.x >= array.length ||
+                point.y < 0 || point.y >= array[point.x].length)
                 return false;
             TwoDimensionalArray.set(array, point, value);
             return true;
@@ -67,8 +72,8 @@
             var turnedArray = TwoDimensionalArray.create<T>(size.invert());
             TwoDimensionalArray.forEach(array, (point, element) => {
                 TwoDimensionalArray.set(turnedArray,
-                                        clockwise ? new Point(size.height - point.y, point.x)
-                                                  : new Point(point.x, size.width  - point.x),
+                                        clockwise ? new Point(size.height - 1 - point.y, point.x)
+                                                  : new Point(point.y, size.width  - 1 - point.x),
                                         element);
             });
             return turnedArray;

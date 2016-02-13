@@ -8,6 +8,7 @@ namespace FTetris.WinForm
     public partial class GameBoardView : UserControl
     {
         GameBoard dataContext = null;
+
         public GameBoard DataContext {
             get { return dataContext; }
             set {

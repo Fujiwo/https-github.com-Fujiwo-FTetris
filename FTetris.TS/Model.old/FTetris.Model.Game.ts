@@ -13,38 +13,40 @@
 
         private shape: boolean[][];
 
-        private tableLength: number = 7;
-
-        private table = {
-            1: [[ false, false, false, false ],
-                [ true , true , true , true  ],
-                [ false, false, false, false ],
-                [ false, false, false, false ]],
-            2: [[ false, false, true , false ],
-                [ false, true , true , false ],
-                [ false, true , false, false ],
-                [ false, false, false, false ]],
-            3: [[ false, true , false, false ],
-                [ false, true , true , false ],
-                [ false, false, true , false ],
-                [ false, false, false, false ]],
-            4: [[ false, false, false, false ],
-                [ false, true , true , false ],
-                [ false, true , true , false ],
-                [ false, false, false, false ]],
-            5: [[ false, false, false, false ],
-                [ false, false, true , false ],
-                [ true , true , true , false ],
-                [ false, false, false, false ]],
-            6: [[ false, false, false, false ],
-                [ false, false, true , false ],
-                [ false, true , true , false ],
-                [ false, false, true , false ]],
-            7: [[ false, false, false, false ],
-                [ true , true , true , false ],
-                [ false, false, true , false ],
-                [ false, false, false, false ]]
-        };
+        private table: boolean[][][] = [
+            [[ false, false, false, false ],
+             [ false, false, false, false ],
+             [ false, false, false, false ],
+             [ false, false, false, false ]],
+            [[ false, false, false, false ],
+             [ true , true , true , true  ],
+             [ false, false, false, false ],
+             [ false, false, false, false ]],
+            [[ false, false, true , false ],
+             [ false, true , true , false ],
+             [ false, true , false, false ],
+             [ false, false, false, false ]],
+            [[ false, true , false, false ],
+             [ false, true , true , false ],
+             [ false, false, true , false ],
+             [ false, false, false, false ]],
+            [[ false, false, false, false ],
+             [ false, true , true , false ],
+             [ false, true , true , false ],
+             [ false, false, false, false ]],
+            [[ false, false, false, false ],
+             [ false, false, true , false ],
+             [ true , true , true , false ],
+             [ false, false, false, false ]],
+            [[ false, false, false, false ],
+             [ false, false, true , false ],
+             [ false, true , true , false ],
+             [ false, false, true , false ]],
+            [[ false, false, false, false ],
+             [ true , true , true , false ],
+             [ false, false, true , false ],
+             [ false, false, false, false ]]
+        ];
 
         private _position: Point;
 
@@ -55,8 +57,9 @@
 
         public constructor() {
            this.index = this.getRandomIndex();
-           this.shape = <boolean [][]>TwoDimensionalArray.clone(this.table[this.index]);
+           this.shape = TwoDimensionalArray.clone<boolean>(this.table[this.index]);
         }
+
         public getPosition(point: Point): Point
         { return Tetromono.getPosition(this.position, point); }
 
@@ -75,7 +78,7 @@
         }
 
         public erase(cellsClone: number[][]): void {
-            Enumerable.where(this.allPoints, point => this[point])
+            Enumerable.where(this.allPoints, point => this.get(point))
                       .forEach(point => TwoDimensionalArray.set(cellsClone, this.getPosition(point), 0));
         }
 
@@ -113,11 +116,11 @@
         }
 
         private getRandomIndex(): number
-        { return Math.floor(Math.random() * (this.tableLength + 1)) + 1; }
+        { return Math.floor(Math.random() * (this.table.length - 1)) + 1; }
     }
 
     export class Cell {
-        public indexChanged: (Cell, number) => void = null;
+        public indexChanged: (cell: Cell, index: number) => void = null;
 
         private _index: number = 0;
 
@@ -128,6 +131,10 @@
                 if (this.indexChanged != null)
                     this.indexChanged(this, value);
             }
+        }
+
+        public constructor(index: number = 0) {
+            this.index = index;
         }
     }
 
@@ -152,7 +159,7 @@
         }
 
         public constructor() {
-            this.cells = TwoDimensionalArray.create<Cell>(this.size);
+            this._cells = TwoDimensionalArray.create<Cell>(this.size);
             TwoDimensionalArray.forEach(this.cells, (point, cell) => TwoDimensionalArray.set(this.cells, point, new Cell()));
         }
 
@@ -178,11 +185,11 @@
     }
 
     class ScoreBoard {
-        public scoreUpdated: (int) => void = null;
+        public scoreUpdated: (score: number) => void = null;
 
         private defaultScorePoint: number = 10;
 
-        private  scorePoint: number = 0;
+        private scorePoint: number = 0;
 
         private _score: number = 0;
 
@@ -205,22 +212,22 @@
         public startAdding(): void { this.scorePoint = this.defaultScorePoint; }
 
         public add(): void {
-            this.score += this.scorePoint;
+            this.score      += this.scorePoint;
             this.scorePoint *= 2;
         }
     }
 
     export class GameBoard extends MaskedCellBoard {
-        public gameStarted     : (         ) => void = null;
-        public gameOver        : (         ) => void = null;
-        public nextPolyominoSet: (Tetromono) => void = null;
-        public scoreUpdated    : (int      ) => void = null;
+        public gameStarted     : (                    ) => void = null;
+        public gameOver        : (                    ) => void = null;
+        public nextPolyominoSet: (polyomino: Tetromono) => void = null;
+        public scoreUpdated    : (score    : number   ) => void = null;
 
         private scoreBoard: ScoreBoard = new ScoreBoard();
 
         public get score(): number { return this.scoreBoard.score; }
 
-        private _nextPolyomino: Tetromono;
+        private _nextPolyomino: Tetromono = null;
 
         public get nextPolyomino(): Tetromono { return this._nextPolyomino; }
 
@@ -246,7 +253,7 @@
 
         public start(): void {
             this.clear();
-            this.nextPolyomino = new Tetromono();
+            this.setNextPolyomino(new Tetromono());
             this.place(this.currentPolyomino);
             this.scoreBoard.reset();
             this.isStarted = true;
@@ -283,8 +290,7 @@
             return false;
         }
 
-        private try(): void
-        {
+        private try(): void {
             var fullRows = this.getFullRows();
             if (fullRows.length > 0) {
                 this.scoreBoard.startAdding();
@@ -324,7 +330,6 @@
 
         private _moveRight(polyomino: Tetromono): boolean { return this.move(new Point(polyomino.position.x + 1, polyomino.position.y), polyomino); }
 
-
         private _turn(currentPolyomino: Tetromono, clockwise: boolean = true): boolean {
             var cellsClone = this.cellsClone;
             if (currentPolyomino.turn(cellsClone, clockwise)) {
@@ -346,7 +351,7 @@
         private placeNextPolyomino(): boolean {
             this.currentPolyomino = this.nextPolyomino;
             if (this.place(this.currentPolyomino)) {
-                this.nextPolyomino = new Tetromono();
+                this.setNextPolyomino(new Tetromono());
                 return true;
             }
             return false;
@@ -354,10 +359,10 @@
     }
 
     export class Game {
-        public gameStarted     : (         ) => void = null;
-        public gameOver        : (         ) => void = null;
-        public nextPolyominoSet: (Tetromono) => void = null;
-        public scoreUpdated    : (int      ) => void = null;
+        public gameStarted     : (                    ) => void = null;
+        public gameOver        : (                    ) => void = null;
+        public nextPolyominoSet: (polyomino: Tetromono) => void = null;
+        public scoreUpdated    : (score    : number   ) => void = null;
 
         private _board: GameBoard = new GameBoard();
 

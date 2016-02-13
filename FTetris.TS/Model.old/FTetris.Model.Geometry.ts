@@ -1,4 +1,28 @@
 ﻿namespace FTetris.Model {
+    export class Mathematics {
+        public static degreeToRadian(degree: number): number {
+            return degree / 180.0 * Math.PI;
+        }
+
+        public static radianToDegree(radian: number): number {
+            return radian / Math.PI * 180.0;
+        }
+
+        public static roundDegree(degree: number): number {
+            while (degree < 0.0)
+                degree += 360.0;
+            while (degree > 360.0)
+                degree -= 360.0;
+            return degree;
+        }
+
+        //public static getRandomNumber(miminum: number, maximum: number): number {
+        //    return Random.nextDoubleBetween(miminum, maximum);
+        //    //return VisualBasicRnd.nextDoubleBetween(miminum, maximum);
+        //    //return XorShift128.nextDoubleBetween(miminum, maximum);
+        //}
+    }
+
     export class Point   {
         private _x: number = 0;
 
@@ -22,6 +46,10 @@
         public add(point: Point): Point {
             return new Point(this.x + point.x, this.y + point.y);
         }
+        
+        public subtract(size: Size): Point {
+            return new Point(this.x - size.width, this.y - size.height);
+        }
     }
  
     export class Size {
@@ -43,5 +71,9 @@
         public equals(size: Size): boolean { return this.width == size.width && this.height == size.height; }
 
         public invert(): Size { return new Size(this.height, this.width); }
+
+        public divide(value: number): Size {
+            return new Size(this.width / value, this.height / value);
+        }
     }
 }
