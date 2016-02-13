@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1, maximum-scale=1, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>FTetris</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="http://threejs.org/build/three.min.js"></script>
@@ -13,8 +15,10 @@
     <script src="app.js"></script>
 </head>
 <body>
-    <div><span>FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)</span></div>
-    <div><span id="score"></span> <span id="nextPolyomino"></span></div>
+    <div>
+        <span>FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)</span>
+        <span id="score"></span> <span id="nextPolyomino"></span>
+    </div>
     <div id="canvas"></div>
 </body>
 </html>
