@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.TS", "FTetris.TS\FT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.Win", "FTetris.Win\FTetris.Win.csproj", "{5BDCCB94-6732-4532-9794-617B40B73FDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.Matrix", "FTetris.Matrix\FTetris.Matrix.csproj", "{7FA33B50-019D-4586-BB89-2916CB1D42F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5BDCCB94-6732-4532-9794-617B40B73FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BDCCB94-6732-4532-9794-617B40B73FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BDCCB94-6732-4532-9794-617B40B73FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA33B50-019D-4586-BB89-2916CB1D42F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA33B50-019D-4586-BB89-2916CB1D42F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA33B50-019D-4586-BB89-2916CB1D42F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA33B50-019D-4586-BB89-2916CB1D42F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
