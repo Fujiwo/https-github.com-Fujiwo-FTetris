@@ -83,6 +83,7 @@ namespace FTetris.View {
 
             this._camera = this.createCamera();
             this.controls = new THREE.OrbitControls(this.camera);
+            this.controls.enableKeys = false;
 
             var lights = this.createLights();
             if (lights != null)
@@ -247,19 +248,18 @@ namespace FTetris.View {
     }
 
     export class Application {
-        game                         = new Model.Game();
+        gameBoard                    = new Model.GameBoard();
         gameBoardView: GameBoardView = null;
 
         public constructor() {
-            this.game.scoreUpdated     = score         => this.setScore        (score        );
-            this.game.nextPolyominoSet = nextPolyomino => this.setNextPolyomino(nextPolyomino);
+            this.gameBoard.scoreUpdated     = score         => this.setScore        (score        );
+            this.gameBoard.nextPolyominoSet = nextPolyomino => this.setNextPolyomino(nextPolyomino);
 
             document.addEventListener("keydown", e => { if (this.gameBoardView != null && this.gameBoardView.onKeyDown(e.keyCode)) e.returnValue = false });
-            document.addEventListener("keyup", e => { if (this.gameBoardView != null && this.gameBoardView.onKeyUp(e.keyCode)) e.returnValue = false });
             document.addEventListener("DOMContentLoaded",
-                () => this.gameBoardView = new GameBoardView(document.getElementById("canvas"), this.game.board));
+                () => this.gameBoardView = new GameBoardView(document.getElementById("canvas"), this.gameBoard));
 
-            setInterval(() => this.game.step(), 1000);
+            setInterval(() => this.gameBoard.step(), 1000);
         }
 
         private setScore(score: number): void {

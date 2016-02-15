@@ -41,10 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerableExtension.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="Pentomino.cs" />
-    <Compile Include="Polyomino.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="CellBoard.cs" />
     <Compile Include="Geometry.cs" />

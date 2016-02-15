@@ -15,7 +15,6 @@ namespace FTetris.Win
         public MainForm()
         {
             InitializeComponent();
-            //webBrowser.Navigate("");
         }
     }
 }

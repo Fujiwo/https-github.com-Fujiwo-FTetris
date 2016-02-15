@@ -5,27 +5,27 @@ namespace FTetris.WinForm
 {
     public partial class MainForm : Form
     {
-        const int interval = 300;
+        const int           interval   = 300;
 
-        readonly Game  game  = new Game ();
-        readonly Timer timer = new Timer();
+        readonly GameBoard  gameBoard  = new GameBoard();
+        readonly Timer      timer      = new Timer();
 
         public MainForm()
         {
             InitializeComponent();
-            gameBoardView.DataContext = game.Board;
+            gameBoardView.DataContext = gameBoard;
             timer.Interval            = interval;
             SetHandlers();
         }
 
         void SetHandlers()
         {
-            timer.Tick             += (sender, e) => game.Step();
+            timer.Tick                 += (sender, e) => gameBoard.Step();
 
-            game .GameStarted      += ()          => timer.Start();
-            game .GameOver         += ()          => timer.Stop ();
-            game .NextPolyominoSet += polyomino   => nextPolyominoStatusLabel.Text = polyomino.Index.ToString();
-            game .ScoreUpdated     += score       => scoreStatusLabel        .Text = score          .ToString();
+            gameBoard.GameStarted      += ()          => timer.Start();
+            gameBoard.GameOver         += ()          => timer.Stop ();
+            gameBoard.NextPolyominoSet += polyomino   => nextPolyominoStatusLabel.Text = polyomino.Index.ToString();
+            gameBoard.ScoreUpdated     += score       => scoreStatusLabel        .Text = score          .ToString();
         }
     }
 }

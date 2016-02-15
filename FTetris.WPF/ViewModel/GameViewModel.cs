@@ -7,10 +7,10 @@ namespace FTetris.WPF.ViewModel
 {
     class GameViewModel : BindableBase
     {
-        const int interval = 300;
+        const int interval                  = 300;
 
-        readonly Game            game  = new Game();
-        readonly DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };
+        readonly GameBoard       gameBoard  = new GameBoard();
+        readonly DispatcherTimer timer      = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };
 
         public GameBoardViewModel GameBoardViewModel { get; private set; }
 
@@ -30,18 +30,18 @@ namespace FTetris.WPF.ViewModel
 
         public GameViewModel()
         {
-            GameBoardViewModel = new GameBoardViewModel(game.Board);
+            GameBoardViewModel = new GameBoardViewModel(gameBoard);
             SetHanders();
         }
 
         private void SetHanders()
         {
-            timer.Tick            += (sender, e)   => game.Step();
+            timer.Tick                 += (sender, e)   => gameBoard.Step();
 
-            game.GameStarted      += ()            => timer.Start();
-            game.GameOver         += ()            => timer.Stop ();
-            game.NextPolyominoSet += nextPolyomino => NextPolyomino = nextPolyomino.Index.ToString();
-            game.ScoreUpdated     += score         => Score         = score              .ToString();
+            gameBoard.GameStarted      += ()            => timer.Start();
+            gameBoard.GameOver         += ()            => timer.Stop ();
+            gameBoard.NextPolyominoSet += nextPolyomino => NextPolyomino = nextPolyomino.Index.ToString();
+            gameBoard.ScoreUpdated     += score         => Score         = score              .ToString();
         }
     }
 }
