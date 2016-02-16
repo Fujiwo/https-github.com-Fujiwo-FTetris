@@ -35,18 +35,20 @@
             // 
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(15, 16);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(631, 754);
+            this.webBrowser.Size = new System.Drawing.Size(615, 593);
             this.webBrowser.TabIndex = 0;
-            this.webBrowser.Url = new System.Uri("http://www2.shos.info/FTetris.TS/index.html", System.UriKind.Absolute);
+            this.webBrowser.Url = new System.Uri("http://www2.shos.info/FTetris.TS/", System.UriKind.Absolute);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 754);
+            this.ClientSize = new System.Drawing.Size(615, 593);
             this.Controls.Add(this.webBrowser);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.Text = "FTetris";
             this.ResumeLayout(false);
