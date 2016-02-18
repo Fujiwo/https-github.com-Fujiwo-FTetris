@@ -40,10 +40,8 @@
         public Cell[,] VisibleCells {
             get {
                 var visibleCells = new Cell[VisibleSize.Width, VisibleSize.Height];
-                for (var x = 0; x < VisibleSize.Width; x++) {
-                    for (var y = 0; y < VisibleSize.Height; y++)
-                        visibleCells[x, y] = base.Cells[x, y + TopMask];
-                }
+                visibleCells.AllPoints()
+                            .ForEach(point => visibleCells.Set(point, Cells.Get(point.Add(new Size<int> { Width = 0, Height = TopMask }))));
                 return visibleCells;
             }
         }

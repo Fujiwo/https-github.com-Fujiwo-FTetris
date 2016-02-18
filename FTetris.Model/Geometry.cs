@@ -34,5 +34,8 @@
     {
         public static Point<int> Add(this Point<int> @this, Point<int> point)
         { return new Point<int> { X = @this.X + point.X, Y = @this.Y + point.Y }; }
+
+        public static Point<int> Add(this Point<int> @this, Size<int> size)
+        { return new Point<int> { X = @this.X + size.Width, Y = @this.Y + size.Height }; }
     }
 }

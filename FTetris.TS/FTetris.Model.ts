@@ -41,6 +41,10 @@
             return new Point(this.x + point.x, this.y + point.y);
         }
 
+        public addSize(size: Size): Point {
+            return new Point(this.x + size.width, this.y + size.height);
+        }
+
         public subtract(size: Size): Point {
             return new Point(this.x - size.width, this.y - size.height);
         }
@@ -188,11 +192,6 @@
             return clonedArray;
         }
     }
-
-    //export const enum PolyominoIndex {
-    //    // http://sansu-seijin.jp/blog/archives/947
-    //    None, I, N, Z, O, J, T, L
-    //}
 
     export class Tetromono {
         private _index: number = 1;
@@ -369,10 +368,8 @@
 
         public get visibleCells(): Cell[][] {
             var visibleCells = TwoDimensionalArray.create<Cell>(this.visibleSize);
-            for (var x = 0; x < this.visibleSize.width; x++) {
-                for (var y = 0; y < this.visibleSize.height; y++)
-                    visibleCells[x][y] = this.cells[x][y + this.topMask];
-            }
+            TwoDimensionalArray.allPoints(visibleCells)
+                               .forEach(point => TwoDimensionalArray.set(visibleCells, point, TwoDimensionalArray.get(this.cells, point.addSize(new Size(0, this.topMask)))));
             return visibleCells;
         }
     }
@@ -550,34 +547,4 @@
             return false;
         }
     }
-
-    //export class Game {
-    //    public gameStarted     : (                    ) => void = null;
-    //    public gameOver        : (                    ) => void = null;
-    //    public nextPolyominoSet: (polyomino: Tetromono) => void = null;
-    //    public scoreUpdated    : (score    : number   ) => void = null;
-
-    //    private _board: GameBoard = new GameBoard();
-
-    //    public get board(): GameBoard { return this._board; }
-
-    //    public get nextPolyomino(): Tetromono { return this.board.nextPolyomino; }
-
-    //    public get score(): number { return this.board.score; }
-
-
-    //    public constructor() {
-    //        this.board.gameStarted      = ()        => { if (this.gameStarted      != null) this.gameStarted     (         ); }
-    //        this.board.gameOver         = ()        => { if (this.gameOver         != null) this.gameOver        (         ); }
-    //        this.board.nextPolyominoSet = polyomino => { if (this.nextPolyominoSet != null) this.nextPolyominoSet(polyomino); }
-    //        this.board.scoreUpdated     = score     => { if (this.scoreUpdated     != null) this.scoreUpdated    (score    ); }
-    //    }
-
-    //    public start    (                         ): void { this.board.start    (         ); }
-    //    public step     (                         ): void { this.board.step     (         ); }
-    //    public moveLeft (                         ): void { this.board.moveLeft (         ); }
-    //    public moveRight(                         ): void { this.board.moveRight(         ); }
-    //    public turn     (clockwise: boolean = true): void { this.board.turn     (clockwise); }
-    //    public drop     (                         ): void { this.board.drop     (         ); }
-    //}
 }

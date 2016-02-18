@@ -103,7 +103,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="FTetris.WinForm_一時キー.pfx" />
     <None Include="..\..\app.manifest">
       <Link>Properties\app.manifest</Link>
     </None>
