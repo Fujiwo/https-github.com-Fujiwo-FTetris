@@ -45,6 +45,9 @@ namespace FTetris.Model
             }
         }
 
+        const int defaultWidth  = 10;
+        const int defaultHeight = 32;
+
         public event Action            GameStarted     ;
         public event Action            GameOver        ;
         public event Action<Tetromono> NextPolyominoSet;
@@ -70,7 +73,7 @@ namespace FTetris.Model
 
         bool IsStarted { get; set; } = false;
 
-        public GameBoard()
+        public GameBoard() : base(size: new Size<int> { Width = defaultWidth, Height = defaultHeight })
         { scoreBoard.ScoreUpdated += score => ScoreUpdated?.Invoke(score); }
 
         public void Start()

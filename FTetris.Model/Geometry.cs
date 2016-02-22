@@ -37,5 +37,11 @@
 
         public static Point<int> Add(this Point<int> @this, Size<int> size)
         { return new Point<int> { X = @this.X + size.Width, Y = @this.Y + size.Height }; }
+
+        public static Size<int> Subtract(this Size<int> @this, Size<int> size)
+        { return new Size<int> { Width = @this.Width - size.Width, Height = @this.Width - size.Height }; }
+
+        public static Size<int> Divide(this Size<int> @this, int value)
+        { return new Size<int> { Width = @this.Width / value, Height = @this.Width / value }; }
     }
 }

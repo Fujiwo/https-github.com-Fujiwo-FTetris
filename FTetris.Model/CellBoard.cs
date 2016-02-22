@@ -2,10 +2,7 @@
 {
     public class CellBoard
     {
-        const int defaultWidth  = 10;
-        const int defaultHeight = 32;
-
-        public Size<int> Size { get; } = new Size<int> { Width = defaultWidth, Height = defaultHeight };
+        public Size<int> Size { get; private set; }
 
         public Cell[,] Cells { get; private set; }
 
@@ -21,8 +18,9 @@
             }
         }
 
-        public CellBoard()
+        public CellBoard(Size<int> size)
         {
+            Size = size;
             Cells = new Cell[Size.Width, Size.Height];
             Cells.ForEach((point, cell) => Cells.Set(point, new Cell()));
         }
@@ -45,5 +43,8 @@
                 return visibleCells;
             }
         }
+
+        public MaskedCellBoard(Size<int> size) : base(size)
+        {}
     }
 }

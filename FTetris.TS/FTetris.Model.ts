@@ -70,6 +70,10 @@
 
         public invert(): Size { return new Size(this.height, this.width); }
 
+        public subtract(size: Size): Size {
+            return new Size(this.width - size.width, this.height - size.height);
+        }
+
         public divide(value: number): Size {
             return new Size(this.width / value, this.height / value);
         }
@@ -331,10 +335,9 @@
     }
 
     export class CellBoard {
-        private defaultWidth  = 10;
-        private defaultHeight = 32;
+        private _size;
 
-        public get size(): Size { return new Size(this.defaultWidth, this.defaultHeight); }
+        public get size(): Size { return this._size; }
 
         private _cells: Cell[][] = null;
 
@@ -350,7 +353,8 @@
             TwoDimensionalArray.forEach(this.cells, (point, cell) => cell.index = TwoDimensionalArray.get(value, point));
         }
 
-        public constructor() {
+        public constructor(size: Size) {
+            this.size   = size;
             this._cells = TwoDimensionalArray.create<Cell>(this.size);
             TwoDimensionalArray.forEach(this.cells, (point, cell) => TwoDimensionalArray.set(this.cells, point, new Cell()));
         }
@@ -371,6 +375,10 @@
             TwoDimensionalArray.allPoints(visibleCells)
                                .forEach(point => TwoDimensionalArray.set(visibleCells, point, TwoDimensionalArray.get(this.cells, point.addSize(new Size(0, this.topMask)))));
             return visibleCells;
+        }
+
+        public constructor(size: Size) {
+            super(size);
         }
     }
 
@@ -407,6 +415,9 @@
         }
     }
 
+    const GameBoardDefaultWidth  = 10;
+    const GameBoardDefaultHeight = 32;
+
     export class GameBoard extends MaskedCellBoard {
         public gameStarted     : (                    ) => void = null;
         public gameOver        : (                    ) => void = null;
@@ -434,7 +445,7 @@
         private isStarted: boolean = false;
 
         public constructor() {
-            super();
+            super(new Size(GameBoardDefaultWidth, GameBoardDefaultHeight));
             this.scoreBoard.scoreUpdated = score => {
                 if (this.scoreUpdated != null)
                     this.scoreUpdated(score);
@@ -542,6 +553,37 @@
             this.currentPolyomino = this.nextPolyomino;
             if (this.place(this.currentPolyomino)) {
                 this.setNextPolyomino(new Tetromono());
+                return true;
+            }
+            return false;
+        }
+    }
+
+    export class PolyominoBoard extends CellBoard
+    {
+        private _polyomino: Tetromono = null;
+
+        public get polyomino(): Tetromono  {
+            return this.polyomino;
+        }
+
+        public set polyomino(value: Tetromono) {
+            if (value != this._polyomino) {
+                this.clear();
+                this.place(value);
+            }
+        }
+
+        public constructor(size: Size) {
+            super(size);
+        }
+
+        private place(polyomino: Tetromono): boolean
+        {
+            var position = new Point(0, 0).addSize(this.size.subtract(polyomino.size).divide(2));
+            var cellsClone = this.cellsClone;
+            if (polyomino.place(cellsClone, position)) {
+                this.cellsClone = cellsClone;
                 return true;
             }
             return false;
