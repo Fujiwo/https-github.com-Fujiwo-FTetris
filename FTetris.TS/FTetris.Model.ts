@@ -339,9 +339,13 @@
 
         public get size(): Size { return this._size; }
 
+        public get actualSize(): Size { return this.size; }
+
         private _cells: Cell[][] = null;
 
         public get cells(): Cell[][] { return this._cells; }
+
+        public get actualCells(): Cell[][] { return this.cells; }
 
         public get cellsClone(): number[][] {
             var cellsClone = TwoDimensionalArray.create<number>(this.size);
@@ -354,7 +358,7 @@
         }
 
         public constructor(size: Size) {
-            this.size   = size;
+            this._size  = size;
             this._cells = TwoDimensionalArray.create<Cell>(this.size);
             TwoDimensionalArray.forEach(this.cells, (point, cell) => TwoDimensionalArray.set(this.cells, point, new Cell()));
         }
@@ -368,13 +372,13 @@
         public get topMask(): number      { return this._topMask;  }
         public set topMask(value: number) { this._topMask = value; }
 
-        public get visibleSize(): Size { return new Size(this.size.width, this.size.height - this.topMask ); }
+        public get actualSize(): Size { return new Size(this.size.width, this.size.height - this.topMask ); }
 
-        public get visibleCells(): Cell[][] {
-            var visibleCells = TwoDimensionalArray.create<Cell>(this.visibleSize);
-            TwoDimensionalArray.allPoints(visibleCells)
-                               .forEach(point => TwoDimensionalArray.set(visibleCells, point, TwoDimensionalArray.get(this.cells, point.addSize(new Size(0, this.topMask)))));
-            return visibleCells;
+        public get actualCells(): Cell[][] {
+            var actualCells = TwoDimensionalArray.create<Cell>(this.actualSize);
+            TwoDimensionalArray.allPoints(actualCells)
+                               .forEach(point => TwoDimensionalArray.set(actualCells, point, TwoDimensionalArray.get(this.cells, point.addSize(new Size(0, this.topMask)))));
+            return actualCells;
         }
 
         public constructor(size: Size) {

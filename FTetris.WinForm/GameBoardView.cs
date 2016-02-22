@@ -28,9 +28,9 @@ namespace FTetris.WinForm
 
         void Initialize(GameBoard gameBoard)
         {
-            Cells = new CellView[gameBoard.VisibleCells.GetLength(0),
-                                 gameBoard.VisibleCells.GetLength(1)];
-            gameBoard.VisibleCells.ForEach((point, cell) =>
+            Cells = new CellView[gameBoard.ActualCells.GetLength(0),
+                                 gameBoard.ActualCells.GetLength(1)];
+            gameBoard.ActualCells.ForEach((point, cell) =>
             {
                 var cellView = new CellView { Point = point, DataContext = cell };
                 cellView.IndexChanged += OnCellViewIndexChanged;
@@ -39,7 +39,7 @@ namespace FTetris.WinForm
         }
 
         public Rectangle GetCellPosition(Size wholeSize, Point<int> point)
-        { return Cells.Get(point).GetPosition(wholeSize, DataContext.VisibleSize); }
+        { return Cells.Get(point).GetPosition(wholeSize, DataContext.ActualSize); }
 
         void OnLoad(object sender, EventArgs e)
         { SetSize(); }

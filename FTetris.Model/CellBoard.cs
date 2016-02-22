@@ -3,8 +3,11 @@
     public class CellBoard
     {
         public Size<int> Size { get; private set; }
+        public virtual Size<int> ActualSize => Size;
 
         public Cell[,] Cells { get; private set; }
+
+        public virtual Cell[,] ActualCells => Cells;
 
         public PolyominoIndex[,] CellsClone
         {
@@ -33,14 +36,14 @@
     {
         public int TopMask { get; set; } = 2;
 
-        public Size<int> VisibleSize => new Size<int> { Width = base.Size.Width, Height = base.Size.Height - TopMask };
+        public override Size<int> ActualSize => new Size<int> { Width = base.Size.Width, Height = base.Size.Height - TopMask };
 
-        public Cell[,] VisibleCells {
+        public override Cell[,] ActualCells {
             get {
-                var visibleCells = new Cell[VisibleSize.Width, VisibleSize.Height];
-                visibleCells.AllPoints()
-                            .ForEach(point => visibleCells.Set(point, Cells.Get(point.Add(new Size<int> { Width = 0, Height = TopMask }))));
-                return visibleCells;
+                var actualCells = new Cell[ActualSize.Width, ActualSize.Height];
+                actualCells.AllPoints()
+                           .ForEach(point => actualCells.Set(point, Cells.Get(point.Add(new Size<int> { Width = 0, Height = TopMask }))));
+                return actualCells;
             }
         }
 

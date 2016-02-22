@@ -77,6 +77,11 @@ namespace FTetris.View {
         private renderer: THREE.WebGLRenderer;
         private controls: THREE.OrbitControls;
 
+        private _sizeRate: Model.Size = new Model.Size(1.0, 1.0);
+
+        public get sizeRate(): Model.Size { return this._sizeRate; }
+        public set sizeRate(value: Model.Size) { this._sizeRate = value; }
+
         protected initialize(element: HTMLElement): void {
             if (!Detector.webgl)
                 Detector.addGetWebGLMessage();
@@ -94,6 +99,7 @@ namespace FTetris.View {
                 objects.forEach(object => this.scene.add(object));
 
             this.renderer = Scene.createRenderer(element);
+            this.setRendererSize();
             this.render();
 
             window.addEventListener('resize', () => this.onResize(), false);
@@ -102,7 +108,7 @@ namespace FTetris.View {
         protected get camera(): THREE.Camera { return this._camera; }
 
         protected onResize(): void {
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this.setRendererSize();
         }
 
         protected onRender(): void {
@@ -126,7 +132,6 @@ namespace FTetris.View {
 
         private static createRenderer(element: HTMLElement): THREE.WebGLRenderer {
             var renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
             element.appendChild(renderer.domElement);
             return renderer;
         }
@@ -134,6 +139,11 @@ namespace FTetris.View {
         private render(): void {
             requestAnimationFrame(() => this.render());
             this.onRender();
+        }
+
+        private setRendererSize(): void {
+            this.renderer.setSize(window.innerWidth  * this.sizeRate.width ,
+                                  window.innerHeight * this.sizeRate.height);
         }
     }
 
@@ -193,17 +203,35 @@ namespace FTetris.View {
         }
     }
 
-    export class GameBoardView extends TurningScene {
-        private _dataContext: Model.GameBoard = null;
-        private cellViews: CellView[][] = null;
+    export class CellBoardView extends TurningScene {
+        protected _dataContext: Model.CellBoard = null;
+        protected cellViews: CellView[][] = null;
 
-        public constructor(element: HTMLElement, gameBoard: Model.GameBoard) {
+        public constructor(element: HTMLElement, sizeRate: Model.Size, cellBoard: Model.CellBoard) {
             super();
-            this._dataContext = gameBoard;
-            this.cellViews = Model.TwoDimensionalArray.create<CellView>(gameBoard.visibleSize);
-            Model.TwoDimensionalArray.forEach(gameBoard.visibleCells, (point, cell) => Model.TwoDimensionalArray.set(this.cellViews, point, new CellView(gameBoard.visibleSize, point, cell)));
+            this._dataContext = cellBoard;
+            this.cellViews = Model.TwoDimensionalArray.create<CellView>(cellBoard.actualSize);
+            Model.TwoDimensionalArray.forEach(cellBoard.actualCells, (point, cell) => Model.TwoDimensionalArray.set(this.cellViews, point, new CellView(cellBoard.actualSize, point, cell)));
+            this.sizeRate = sizeRate;
             this.initialize(element);
         }
+    }
+
+    export class GameBoardView extends CellBoardView {
+        protected get dataContext(): Model.GameBoard {
+            return <Model.GameBoard>this._dataContext;
+        }
+
+        //private _dataContext: Model.GameBoard = null;
+        //private cellViews: CellView[][] = null;
+
+        //public constructor(element: HTMLElement, gameBoard: Model.GameBoard) {
+        //    super();
+        //    this._dataContext = gameBoard;
+        //    this.cellViews = Model.TwoDimensionalArray.create<CellView>(gameBoard.actualSize);
+        //    Model.TwoDimensionalArray.forEach(gameBoard.actualCells, (point, cell) => Model.TwoDimensionalArray.set(this.cellViews, point, new CellView(gameBoard.actualSize, point, cell)));
+        //    this.initialize(element);
+        //}
 
         public onKeyDown(keyCode: number): boolean {
             switch (keyCode) {
@@ -217,18 +245,18 @@ namespace FTetris.View {
             return false;
         }
 
-        public onKeyUp(keyCode: number): boolean {
-            switch (keyCode) {
-                case 13 /* Enter */:
-                case 32 /* Space */:
-                case 37 /* Left  */:
-                case 38 /* Up    */:
-                case 39 /* Right */:
-                case 40 /* Down  */:
-                    return true;
-            }
-            return false;
-        }
+        //public onKeyUp(keyCode: number): boolean {
+        //    switch (keyCode) {
+        //        case 13 /* Enter */:
+        //        case 32 /* Space */:
+        //        case 37 /* Left  */:
+        //        case 38 /* Up    */:
+        //        case 39 /* Right */:
+        //        case 40 /* Down  */:
+        //            return true;
+        //    }
+        //    return false;
+        //}
 
         protected createLights(): THREE.Light[] {
             var directionalLight = new THREE.DirectionalLight(0xcccccc);
@@ -240,16 +268,17 @@ namespace FTetris.View {
             return Model.Enumerable.select(Model.TwoDimensionalArray.toSequence(this.cellViews), cellView => cellView.mesh);
         }
 
-        private start    (                         ): void { this._dataContext.start    (         ); }
-        private moveRight(                         ): void { this._dataContext.moveRight(         ); }
-        private moveLeft (                         ): void { this._dataContext.moveLeft (         ); }
-        private turn     (clockwise: boolean = true): void { this._dataContext.turn     (clockwise); }
-        private drop(): void { this._dataContext.drop(); }
+        private start    (                         ): void { this.dataContext.start    (         ); }
+        private moveRight(                         ): void { this.dataContext.moveRight(         ); }
+        private moveLeft (                         ): void { this.dataContext.moveLeft (         ); }
+        private turn     (clockwise: boolean = true): void { this.dataContext.turn     (clockwise); }
+        private drop(): void { this.dataContext.drop(); }
     }
 
     export class Application {
         gameBoard                    = new Model.GameBoard();
         gameBoardView: GameBoardView = null;
+        //gameBoardView2: GameBoardView = null;
 
         public constructor() {
             this.gameBoard.scoreUpdated     = score         => this.setScore        (score        );
@@ -257,7 +286,12 @@ namespace FTetris.View {
 
             document.addEventListener("keydown", e => { if (this.gameBoardView != null && this.gameBoardView.onKeyDown(e.keyCode)) e.returnValue = false });
             document.addEventListener("DOMContentLoaded",
-                () => this.gameBoardView = new GameBoardView(document.getElementById("canvas"), this.gameBoard));
+                //() => this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), this.gameBoard)
+                () => {
+                    this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), new Model.Size(0.7, 1.0), this.gameBoard);
+                    //this.gameBoardView2 = new GameBoardView(document.getElementById("polyominoboard"), new Model.Size(0.3, 0.3),  this.gameBoard);
+                }
+            );
 
             setInterval(() => this.gameBoard.step(), 1000);
         }

@@ -13,9 +13,9 @@ namespace FTetris.Matrix
         {
             DataContext = gameBoard;
 
-            Cells = new CellView[gameBoard.VisibleCells.GetLength(0),
-                                 gameBoard.VisibleCells.GetLength(1)];
-            gameBoard.VisibleCells.ForEach((point, cell) => Cells.Set(point, new CellView { Point = point, DataContext = cell }));
+            Cells = new CellView[gameBoard.ActualCells.GetLength(0),
+                                 gameBoard.ActualCells.GetLength(1)];
+            gameBoard.ActualCells.ForEach((point, cell) => Cells.Set(point, new CellView { Point = point, DataContext = cell }));
         }
 
         public void Start()

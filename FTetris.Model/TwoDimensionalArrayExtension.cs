@@ -76,5 +76,8 @@ namespace FTetris.Model
         public static bool IsEqual<T>(this T[,] @this, T[,] array)
         { return @this.Size().Equals(array.Size()) &&
                  @this.SelectMany().All(pointedItem => pointedItem.Item2.Equals(array.Get(pointedItem.Item1))); }
+
+        public static T[,] Create<T>(Size<int> size)
+        { return new T[size.Width, size.Height]; }
     }
 }
