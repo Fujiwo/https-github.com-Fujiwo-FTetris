@@ -12,3 +12,11 @@ canvas {
     width : 90%;
     height: 90%;
 }
+
+#gameboard {
+    float: left;
+}
+
+#polyominoboard {
+    float: right;
+}

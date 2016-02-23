@@ -215,23 +215,22 @@ namespace FTetris.View {
             this.sizeRate = sizeRate;
             this.initialize(element);
         }
+
+        protected createLights(): THREE.Light[] {
+            var directionalLight = new THREE.DirectionalLight(0xcccccc);
+            //directionalLight.position.set(1.0, 1.0, 1.0);
+            return [directionalLight, new THREE.AmbientLight(0x888888)];
+        }
+
+        protected createObjects(): THREE.Object3D[] {
+            return Model.Enumerable.select(Model.TwoDimensionalArray.toSequence(this.cellViews), cellView => cellView.mesh);
+        }
     }
 
     export class GameBoardView extends CellBoardView {
         protected get dataContext(): Model.GameBoard {
             return <Model.GameBoard>this._dataContext;
         }
-
-        //private _dataContext: Model.GameBoard = null;
-        //private cellViews: CellView[][] = null;
-
-        //public constructor(element: HTMLElement, gameBoard: Model.GameBoard) {
-        //    super();
-        //    this._dataContext = gameBoard;
-        //    this.cellViews = Model.TwoDimensionalArray.create<CellView>(gameBoard.actualSize);
-        //    Model.TwoDimensionalArray.forEach(gameBoard.actualCells, (point, cell) => Model.TwoDimensionalArray.set(this.cellViews, point, new CellView(gameBoard.actualSize, point, cell)));
-        //    this.initialize(element);
-        //}
 
         public onKeyDown(keyCode: number): boolean {
             switch (keyCode) {
@@ -245,16 +244,6 @@ namespace FTetris.View {
             return false;
         }
 
-        protected createLights(): THREE.Light[] {
-            var directionalLight = new THREE.DirectionalLight(0xcccccc);
-            //directionalLight.position.set(1.0, 1.0, 1.0);
-            return [directionalLight, new THREE.AmbientLight(0x888888)];
-        }
-
-        protected createObjects(): THREE.Object3D[] {
-            return Model.Enumerable.select(Model.TwoDimensionalArray.toSequence(this.cellViews), cellView => cellView.mesh);
-        }
-
         private start    (                         ): void { this.dataContext.start    (         ); }
         private moveRight(                         ): void { this.dataContext.moveRight(         ); }
         private moveLeft (                         ): void { this.dataContext.moveLeft (         ); }
@@ -262,21 +251,25 @@ namespace FTetris.View {
         private drop(): void { this.dataContext.drop(); }
     }
 
+    export class PolyominoBoardView extends CellBoardView {
+        protected get dataContext(): Model.PolyominoBoard {
+            return <Model.PolyominoBoard>this._dataContext;
+        }
+    }
+
     export class Application {
-        game                         = new Model.Game();
-        gameBoardView: GameBoardView = null;
-        //gameBoardView2: GameBoardView = null;
+        game                                   = new Model.Game();
+        gameBoardView     : GameBoardView      = null;
+        polyominoBoardView: PolyominoBoardView = null;
 
         public constructor() {
-            this.game.gameBoard.scoreUpdated     = score         => this.setScore        (score        );
-            this.game          .nextPolyominoSet = nextPolyomino => this.setNextPolyomino(nextPolyomino);
+            this.game.gameBoard.scoreUpdated = score => this.setScore(score);
 
             document.addEventListener("keydown", e => { if (this.gameBoardView != null && this.gameBoardView.onKeyDown(e.keyCode)) e.returnValue = false });
             document.addEventListener("DOMContentLoaded",
-                //() => this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), this.gameBoard)
                 () => {
-                    this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), new Model.Size(0.7, 1.0), this.game.gameBoard);
-                    //this.gameBoardView2 = new GameBoardView(document.getElementById("polyominoboard"), new Model.Size(0.3, 0.3),  this.gameBoard);
+                    this.gameBoardView      = new GameBoardView     (document.getElementById("gameboard"     ), new Model.Size(10.0 / (10.0 + 4.0), 1.0), this.game.gameBoard     );
+                    this.polyominoBoardView = new PolyominoBoardView(document.getElementById("polyominoboard"), new Model.Size( 4.0 / (10.0 + 4.0), 1.0), this.game.polyominoBoard);
                 }
             );
 
@@ -285,10 +278,6 @@ namespace FTetris.View {
 
         private setScore(score: number): void {
             document.getElementById("score").innerText = score.toString();
-        }
-
-        private setNextPolyomino(nextPolyomino: Model.Tetromono): void {
-            document.getElementById("nextPolyomino").innerText = nextPolyomino.toString();
         }
     }
 }
