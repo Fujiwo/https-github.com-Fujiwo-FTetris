@@ -97,6 +97,9 @@ namespace FTetris.Model
             return true;
         }
 
+        public override string ToString()
+        { return Index.ToString(); }
+
         bool[,] Turn(bool clockwise = true)
         { return shape.Turn(clockwise); }
 

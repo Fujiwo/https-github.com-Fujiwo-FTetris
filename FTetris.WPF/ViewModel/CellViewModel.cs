@@ -32,7 +32,7 @@ namespace FTetris.WPF.ViewModel
         public Rect GetPosition(Size wholeSize, Size<int> wholeNumber)
         { return GetPosition(wholeSize, wholeNumber, Point); }
 
-        public static Rect GetPosition(Size wholeSize, Size<int> wholeNumber, Point<int> point)
+        static Rect GetPosition(Size wholeSize, Size<int> wholeNumber, Point<int> point)
         {
             var width  = wholeSize.Width  / wholeNumber.Width;
             var height = wholeSize.Height / wholeNumber.Height;

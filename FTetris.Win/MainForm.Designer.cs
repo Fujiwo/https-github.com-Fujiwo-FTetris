@@ -1,4 +1,4 @@
-﻿namespace FTetris.Win
+﻿namespace FTetris.WinForm.WB
 {
     partial class MainForm
     {

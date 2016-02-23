@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace FTetris.Win
+namespace FTetris.WinForm.WB
 {
     static class Program
     {

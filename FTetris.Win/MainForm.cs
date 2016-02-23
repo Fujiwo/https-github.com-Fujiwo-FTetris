@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace FTetris.Win
+namespace FTetris.WinForm.WB
 {
     public partial class MainForm : Form
     {

@@ -43,7 +43,10 @@ namespace FTetris.WinForm
         }
 
         public void Paint(Graphics graphics)
-        { graphics.FillRectangle(Color, Position); }
+        {
+            graphics.FillRectangle(Color    , Position);
+            graphics.DrawRectangle(Pens.Gray, Position);
+        }
 
         void OnDataContextIndexChanged(Cell cell, PolyominoIndex polyominoIndex)
         { IndexChanged?.Invoke(this); }

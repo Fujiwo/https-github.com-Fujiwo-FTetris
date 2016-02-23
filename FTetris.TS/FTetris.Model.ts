@@ -565,25 +565,14 @@
 
     export class PolyominoBoard extends CellBoard
     {
-        private _polyomino: Tetromono = null;
-
-        public get polyomino(): Tetromono  {
-            return this.polyomino;
+        public constructor() {
+            super(new Tetromono().size);
         }
 
-        public set polyomino(value: Tetromono) {
-            if (value != this._polyomino) {
-                this.clear();
-                this.place(value);
-            }
-        }
-
-        public constructor(size: Size) {
-            super(size);
-        }
-
-        private place(polyomino: Tetromono): boolean
+        public place(polyomino: Tetromono): boolean
         {
+            this.clear();
+
             var position = new Point(0, 0).addSize(this.size.subtract(polyomino.size).divide(2));
             var cellsClone = this.cellsClone;
             if (polyomino.place(cellsClone, position)) {
@@ -591,6 +580,27 @@
                 return true;
             }
             return false;
+        }
+    }
+
+    export class Game {
+        public nextPolyominoSet: (polyomino: Tetromono) => void = null;
+
+        _gameBoard: GameBoard = new GameBoard();
+
+        public get gameBoard(): GameBoard { return this._gameBoard; }
+
+        _polyominoBoard: PolyominoBoard = new PolyominoBoard();
+         
+        public get polyominoBoard(): PolyominoBoard { return this._polyominoBoard; }
+
+        public constructor()
+        {
+            this.gameBoard.nextPolyominoSet = polyomino => {
+                this.polyominoBoard.place(polyomino);
+                if (this.nextPolyominoSet != null)
+                    this.nextPolyominoSet(polyomino);
+            }
         }
     }
 }

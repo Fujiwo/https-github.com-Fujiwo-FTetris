@@ -4,26 +4,15 @@ namespace FTetris.Model
 {
     public class PolyominoBoard : CellBoard
     {
-        Tetromono polyomino = null;
-
-        public Tetromono Polyomino {
-            get { return polyomino; }
-            set {
-                if (value != polyomino) {
-                    Clear();
-                    Place(value);
-                }
-            }
-        }
-
-        public PolyominoBoard(Size<int> size) : base(size)
+        public PolyominoBoard() : base(new Tetromono().Size)
         {}
 
-        bool Place(Tetromono polyomino)
+        public bool Place(Tetromono polyomino)
         {
             Contract.Assert(polyomino.Size.Width  <= Size.Width  &&
                             polyomino.Size.Height <= Size.Height);
 
+            Clear();
             var position = new Point<int>().Add(Size.Subtract(polyomino.Size).Divide(2));
             var cellsClone = CellsClone;
             if (polyomino.Place(cellsClone, position)) {

@@ -7,19 +7,32 @@ namespace FTetris.WPF.ViewModel
 {
     class GameViewModel : BindableBase
     {
-        const int interval                  = 300;
+        const int interval                      = 300;
 
-        readonly GameBoard       gameBoard  = new GameBoard();
-        readonly DispatcherTimer timer      = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };
+        readonly Game            game  = new Game();
+        //readonly GameBoard       gameBoard      = new GameBoard();
+        //readonly PolyominoBoard  polyominoBoard = new PolyominoBoard();
+        readonly DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };
 
-        public GameBoardViewModel GameBoardViewModel { get; private set; }
+        GameBoard      GameBoard      => game.GameBoard     ;
+        PolyominoBoard PolyominoBoard => game.PolyominoBoard;
 
-        string nextPolyomino = string.Empty;
+        public GameBoardViewModel      GameBoardViewModel      { get; private set; }
+        public PolyominoBoardViewModel PolyominoBoardViewModel { get; private set; }
 
-        public string NextPolyomino {
+        Tetromono nextPolyomino = null;
+
+        public Tetromono NextPolyomino {
             get { return nextPolyomino; }
-            set { SetProperty(ref nextPolyomino, value); }
+            set {
+                SetProperty(ref nextPolyomino, value);
+                //OnPropertyChanged(() => NextPolyominoText);
+            }
         }
+
+        //public string NextPolyominoText {
+        //    get { return NextPolyomino == null ? string.Empty : NextPolyomino.Index.ToString(); }
+        //}
 
         string score = "0";
 
@@ -30,18 +43,19 @@ namespace FTetris.WPF.ViewModel
 
         public GameViewModel()
         {
-            GameBoardViewModel = new GameBoardViewModel(gameBoard);
+            GameBoardViewModel      = new GameBoardViewModel     (GameBoard     );
+            PolyominoBoardViewModel = new PolyominoBoardViewModel(PolyominoBoard);
             SetHanders();
         }
 
         private void SetHanders()
         {
-            timer.Tick                 += (sender, e)   => gameBoard.Step();
+            timer.Tick                 += (sender, e)   => GameBoard.Step();
 
-            gameBoard.GameStarted      += ()            => timer.Start();
-            gameBoard.GameOver         += ()            => timer.Stop ();
-            gameBoard.NextPolyominoSet += nextPolyomino => NextPolyomino = nextPolyomino.Index.ToString();
-            gameBoard.ScoreUpdated     += score         => Score         = score              .ToString();
+            GameBoard.GameStarted      += ()            => timer.Start();
+            GameBoard.GameOver         += ()            => timer.Stop ();
+            GameBoard.NextPolyominoSet += nextPolyomino => NextPolyomino = nextPolyomino;
+            GameBoard.ScoreUpdated     += score         => Score         = score.ToString();
         }
     }
 }

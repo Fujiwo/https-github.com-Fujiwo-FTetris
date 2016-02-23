@@ -6,22 +6,27 @@
         xmlns:local="clr-namespace:FTetris.WPF"
         xmlns:viewModel="clr-namespace:FTetris.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)" Height="720" Width="280"
+        Title="FTetris (Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)" Height="720" Width="360"
         PreviewKeyDown="OnPreviewKeyDown">
     <Window.Resources>
         <viewModel:GameViewModel x:Key="viewModel" />
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource viewModel}}">
+    <Grid DataContext="{Binding Source={StaticResource viewModel}}" Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="28*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding NextPolyomino}" HorizontalAlignment="Left" Margin="10,0"/>
-            <TextBlock Text="{Binding Score}" HorizontalAlignment="Right" Margin="10,0"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:PolyominoBoardView Grid.Column="1" DataContext="{Binding PolyominoBoardViewModel}" Margin="10,10"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Background="Black" Margin="10,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Score: " Foreground="White" Margin="10,10"/>
+                <TextBlock Text="{Binding Score}" Foreground="White" HorizontalAlignment="Right" Margin="10,10"/>
+            </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="1">
-            <local:GameBoardView x:Name="gameBoardView" DataContext="{Binding GameBoardViewModel}" />
-        </Grid>
+        <local:GameBoardView Grid.Row="0" Grid.RowSpan="2"  x:Name="gameBoardView" DataContext="{Binding GameBoardViewModel}" Margin="10,10" />
     </Grid>
 </Window>

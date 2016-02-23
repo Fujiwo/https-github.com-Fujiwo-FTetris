@@ -245,19 +245,6 @@ namespace FTetris.View {
             return false;
         }
 
-        //public onKeyUp(keyCode: number): boolean {
-        //    switch (keyCode) {
-        //        case 13 /* Enter */:
-        //        case 32 /* Space */:
-        //        case 37 /* Left  */:
-        //        case 38 /* Up    */:
-        //        case 39 /* Right */:
-        //        case 40 /* Down  */:
-        //            return true;
-        //    }
-        //    return false;
-        //}
-
         protected createLights(): THREE.Light[] {
             var directionalLight = new THREE.DirectionalLight(0xcccccc);
             //directionalLight.position.set(1.0, 1.0, 1.0);
@@ -276,24 +263,24 @@ namespace FTetris.View {
     }
 
     export class Application {
-        gameBoard                    = new Model.GameBoard();
+        game                         = new Model.Game();
         gameBoardView: GameBoardView = null;
         //gameBoardView2: GameBoardView = null;
 
         public constructor() {
-            this.gameBoard.scoreUpdated     = score         => this.setScore        (score        );
-            this.gameBoard.nextPolyominoSet = nextPolyomino => this.setNextPolyomino(nextPolyomino);
+            this.game.gameBoard.scoreUpdated     = score         => this.setScore        (score        );
+            this.game          .nextPolyominoSet = nextPolyomino => this.setNextPolyomino(nextPolyomino);
 
             document.addEventListener("keydown", e => { if (this.gameBoardView != null && this.gameBoardView.onKeyDown(e.keyCode)) e.returnValue = false });
             document.addEventListener("DOMContentLoaded",
                 //() => this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), this.gameBoard)
                 () => {
-                    this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), new Model.Size(0.7, 1.0), this.gameBoard);
+                    this.gameBoardView = new GameBoardView(document.getElementById("gameboard"), new Model.Size(0.7, 1.0), this.game.gameBoard);
                     //this.gameBoardView2 = new GameBoardView(document.getElementById("polyominoboard"), new Model.Size(0.3, 0.3),  this.gameBoard);
                 }
             );
 
-            setInterval(() => this.gameBoard.step(), 1000);
+            setInterval(() => this.game.gameBoard.step(), 1000);
         }
 
         private setScore(score: number): void {

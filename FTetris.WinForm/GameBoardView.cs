@@ -5,68 +5,59 @@ using System.Windows.Forms;
 
 namespace FTetris.WinForm
 {
-    public partial class GameBoardView : UserControl
+    public partial class GameBoardView : CellBoardView
     {
-        GameBoard dataContext = null;
-
-        public GameBoard DataContext {
-            get { return dataContext; }
-            set {
-                if (value != dataContext) {
-                    dataContext = value;
-                    Initialize(value);
-                }
-            }
+        public new GameBoard DataContext {
+            get { return (GameBoard)base.DataContext; }
+            set { base.DataContext = value; }
         }
 
-        internal CellView[,] Cells { get; set; }
+        //internal CellView[,] Cells { get; set; }
 
         public GameBoardView()
         {
             InitializeComponent();
         }
 
-        void Initialize(GameBoard gameBoard)
-        {
-            Cells = new CellView[gameBoard.ActualCells.GetLength(0),
-                                 gameBoard.ActualCells.GetLength(1)];
-            gameBoard.ActualCells.ForEach((point, cell) =>
-            {
-                var cellView = new CellView { Point = point, DataContext = cell };
-                cellView.IndexChanged += OnCellViewIndexChanged;
-                Cells.Set(point, cellView);
-            });
-        }
+        //void Initialize(GameBoard gameBoard)
+        //{
+        //    Cells = TwoDimensionalArrayExtension.Create<CellView>(gameBoard.ActualCells.Size());
+        //    gameBoard.ActualCells.ForEach((point, cell) => {
+        //        var cellView = new CellView { Point = point, DataContext = cell };
+        //        cellView.IndexChanged += OnCellViewIndexChanged;
+        //        Cells.Set(point, cellView);
+        //    });
+        //}
 
-        public Rectangle GetCellPosition(Size wholeSize, Point<int> point)
-        { return Cells.Get(point).GetPosition(wholeSize, DataContext.ActualSize); }
+        //public Rectangle GetCellPosition(Size wholeSize, Point<int> point)
+        //{ return Cells.Get(point).GetPosition(wholeSize, DataContext.ActualSize); }
 
-        void OnLoad(object sender, EventArgs e)
-        { SetSize(); }
+        //void OnLoad(object sender, EventArgs e)
+        //{ SetSize(); }
 
-        void OnSizeChanged(object sender, EventArgs e)
-        {
-            Invalidate();
-            SetSize();
-        }
+        //void OnSizeChanged(object sender, EventArgs e)
+        //{
+        //    Invalidate();
+        //    SetSize();
+        //}
 
-        void OnPaint(object sender, PaintEventArgs e)
-        { Cells?.ToSequence()?.ForEach(cell => cell.Paint(e.Graphics)); }
+        //void OnPaint(object sender, PaintEventArgs e)
+        //{ Cells?.ToSequence()?.ForEach(cell => cell.Paint(e.Graphics)); }
 
-        void OnCellViewIndexChanged(CellView cellView)
-        {
-            using (var graphics = CreateGraphics()) {
-                cellView.Paint(graphics);
-            }
-        }
+        //void OnCellViewIndexChanged(CellView cellView)
+        //{
+        //    using (var graphics = CreateGraphics()) {
+        //        cellView.Paint(graphics);
+        //    }
+        //}
 
-        void SetSize()
-        {
-            if (Cells != null) {
-                var clientSize = ClientSize;
-                Cells.ForEach((point, cell) => cell.Position = GetCellPosition(clientSize, point));
-            }
-        }
+        //void SetSize()
+        //{
+        //    if (Cells != null) {
+        //        var clientSize = ClientSize;
+        //        Cells.ForEach((point, cell) => cell.Position = GetCellPosition(clientSize, point));
+        //    }
+        //}
 
         void OnPreviousKeyDown(object sender, PreviewKeyDownEventArgs e)
         {

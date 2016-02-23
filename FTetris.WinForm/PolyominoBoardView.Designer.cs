@@ -1,6 +1,6 @@
 ﻿namespace FTetris.WinForm
 {
-    partial class GameBoardView
+    partial class PolyominoBoardView
     {
         /// <summary> 
         /// 必要なデザイナー変数です。
@@ -29,14 +29,13 @@
         {
             this.SuspendLayout();
             // 
-            // GameBoardView
+            // PolyominoBoardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ForeColor = System.Drawing.Color.White;
-            this.Name = "GameBoardView";
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnPreviousKeyDown);
+            this.Name = "PolyominoBoardView";
             this.ResumeLayout(false);
 
         }

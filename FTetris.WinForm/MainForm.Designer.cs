@@ -27,35 +27,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.nextPolyominoStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.scoreStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.scoreLabel = new System.Windows.Forms.Label();
+            this.scoreText = new System.Windows.Forms.Label();
+            this.polyominoBoardView = new FTetris.WinForm.PolyominoBoardView();
             this.gameBoardView = new FTetris.WinForm.GameBoardView();
-            this.statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusBar
+            // scoreLabel
             // 
-            this.statusBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.statusBar.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nextPolyominoStatusLabel,
-            this.scoreStatusLabel});
-            this.statusBar.Location = new System.Drawing.Point(0, 0);
-            this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(221, 22);
-            this.statusBar.SizingGrip = false;
-            this.statusBar.TabIndex = 1;
+            this.scoreLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scoreLabel.AutoSize = true;
+            this.scoreLabel.BackColor = System.Drawing.Color.Black;
+            this.scoreLabel.ForeColor = System.Drawing.Color.White;
+            this.scoreLabel.Location = new System.Drawing.Point(240, 103);
+            this.scoreLabel.Name = "scoreLabel";
+            this.scoreLabel.Size = new System.Drawing.Size(40, 12);
+            this.scoreLabel.TabIndex = 3;
+            this.scoreLabel.Text = "Score: ";
             // 
-            // nextPolyominoStatusLabel
+            // scoreText
             // 
-            this.nextPolyominoStatusLabel.Name = "nextPolyominoStatusLabel";
-            this.nextPolyominoStatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.scoreText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scoreText.AutoSize = true;
+            this.scoreText.BackColor = System.Drawing.Color.Black;
+            this.scoreText.ForeColor = System.Drawing.Color.White;
+            this.scoreText.Location = new System.Drawing.Point(280, 103);
+            this.scoreText.Name = "scoreText";
+            this.scoreText.Size = new System.Drawing.Size(11, 12);
+            this.scoreText.TabIndex = 4;
+            this.scoreText.Text = "0";
+            this.scoreText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // scoreStatusLabel
+            // polyominoBoardView
             // 
-            this.scoreStatusLabel.Name = "scoreStatusLabel";
-            this.scoreStatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.polyominoBoardView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.polyominoBoardView.BackColor = System.Drawing.Color.Black;
+            this.polyominoBoardView.DataContext = null;
+            this.polyominoBoardView.Enabled = false;
+            this.polyominoBoardView.ForeColor = System.Drawing.Color.White;
+            this.polyominoBoardView.Location = new System.Drawing.Point(239, 10);
+            this.polyominoBoardView.Name = "polyominoBoardView";
+            this.polyominoBoardView.Size = new System.Drawing.Size(80, 77);
+            this.polyominoBoardView.TabIndex = 2;
+            this.polyominoBoardView.TabStop = false;
             // 
             // gameBoardView
             // 
@@ -64,23 +78,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gameBoardView.BackColor = System.Drawing.Color.Black;
             this.gameBoardView.DataContext = null;
-            this.gameBoardView.Location = new System.Drawing.Point(0, 25);
-            this.gameBoardView.Margin = new System.Windows.Forms.Padding(4);
+            this.gameBoardView.ForeColor = System.Drawing.Color.White;
+            this.gameBoardView.Location = new System.Drawing.Point(9, 9);
+            this.gameBoardView.Margin = new System.Windows.Forms.Padding(10);
             this.gameBoardView.Name = "gameBoardView";
-            this.gameBoardView.Size = new System.Drawing.Size(221, 615);
+            this.gameBoardView.Size = new System.Drawing.Size(216, 620);
             this.gameBoardView.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(221, 639);
-            this.Controls.Add(this.statusBar);
+            this.ClientSize = new System.Drawing.Size(327, 639);
+            this.Controls.Add(this.scoreText);
+            this.Controls.Add(this.scoreLabel);
+            this.Controls.Add(this.polyominoBoardView);
             this.Controls.Add(this.gameBoardView);
             this.Name = "MainForm";
             this.Text = "FTetris(Enter: Start ←: Left →: Right ↑: Turn Right ↓: Turn Left Space: Drop)";
-            this.statusBar.ResumeLayout(false);
-            this.statusBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,9 +104,9 @@
         #endregion
 
         private GameBoardView gameBoardView;
-        private System.Windows.Forms.StatusStrip statusBar;
-        private System.Windows.Forms.ToolStripStatusLabel nextPolyominoStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel scoreStatusLabel;
+        private PolyominoBoardView polyominoBoardView;
+        private System.Windows.Forms.Label scoreLabel;
+        private System.Windows.Forms.Label scoreText;
     }
 }
 

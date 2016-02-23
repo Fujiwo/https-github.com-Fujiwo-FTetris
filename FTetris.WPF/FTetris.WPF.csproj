@@ -77,10 +77,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PolyominoBoardView.xaml.cs">
+      <DependentUpon>PolyominoBoardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CellViewModel.cs" />
     <Compile Include="ViewModel\Converter.cs" />
+    <Compile Include="ViewModel\CellBoardViewModel.cs" />
     <Compile Include="ViewModel\GameBoardViewModel.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
+    <Compile Include="ViewModel\PolyominoBoardViewModel.cs" />
     <Page Include="GameBoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +105,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PolyominoBoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
