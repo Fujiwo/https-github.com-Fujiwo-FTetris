@@ -7,11 +7,9 @@ namespace FTetris.WPF.ViewModel
 {
     class GameViewModel : BindableBase
     {
-        const int interval                      = 300;
+        const int interval             = 300;
 
         readonly Game            game  = new Game();
-        //readonly GameBoard       gameBoard      = new GameBoard();
-        //readonly PolyominoBoard  polyominoBoard = new PolyominoBoard();
         readonly DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(interval) };
 
         GameBoard      GameBoard      => game.GameBoard     ;
@@ -24,15 +22,8 @@ namespace FTetris.WPF.ViewModel
 
         public Tetromono NextPolyomino {
             get { return nextPolyomino; }
-            set {
-                SetProperty(ref nextPolyomino, value);
-                //OnPropertyChanged(() => NextPolyominoText);
-            }
+            set { SetProperty(ref nextPolyomino, value); }
         }
-
-        //public string NextPolyominoText {
-        //    get { return NextPolyomino == null ? string.Empty : NextPolyomino.Index.ToString(); }
-        //}
 
         string score = "0";
 

@@ -9,12 +9,7 @@ namespace FTetris.WPF.ViewModel
         }
 
         public GameBoardViewModel(GameBoard gameBoard) : base(gameBoard)
-        {
-            //DataContext = gameBoard;
-            //Cells       = new CellViewModel[gameBoard.ActualCells.GetLength(0),
-            //                                gameBoard.ActualCells.GetLength(1)];
-            //gameBoard.ActualCells.ForEach((point, cell) => Cells.Set(point, new CellViewModel { Point = point, DataContext = cell }));
-        }
+        {}
 
         public void Start()
         { DataContext.Start(); }
