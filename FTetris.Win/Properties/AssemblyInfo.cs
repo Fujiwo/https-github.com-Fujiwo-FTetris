@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("FTetris.WinForm.WB")]
+[assembly: AssemblyTitle("FTetris.Win")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FTetris.WinForm.WB")]
+[assembly: AssemblyProduct("FTetris.Win")]
 [assembly: AssemblyCopyright("Copyright © 2016 Fujio Kojima")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

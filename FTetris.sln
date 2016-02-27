@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.ModelTests", "FTetr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.TS", "FTetris.TS\FTetris.TS.csproj", "{27439BB2-573F-4DD7-AEFF-408B5500ABB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.WinForm.WB", "FTetris.Win\FTetris.WinForm.WB.csproj", "{5BDCCB94-6732-4532-9794-617B40B73FDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.Win", "FTetris.Win\FTetris.Win.csproj", "{5BDCCB94-6732-4532-9794-617B40B73FDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTetris.Matrix", "FTetris.Matrix\FTetris.Matrix.csproj", "{7FA33B50-019D-4586-BB89-2916CB1D42F4}"
 EndProject

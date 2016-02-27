@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("a4095042-fe4b-4d23-b65a-5a7bb137c701")]
+[assembly: Guid("5042c2bf-3e74-49f3-9ef4-f6f572e9ff1e")]
 
 // アセンブリのバージョン情報は次の 4 つの値で構成されています:
 //

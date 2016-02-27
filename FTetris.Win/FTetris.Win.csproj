@@ -7,8 +7,8 @@
     <ProjectGuid>{5BDCCB94-6732-4532-9794-617B40B73FDF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FTetris.WinForm.WB</RootNamespace>
-    <AssemblyName>FTetris.WinForm.WB</AssemblyName>
+    <RootNamespace>FTetris.Win</RootNamespace>
+    <AssemblyName>FTetris.Win</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
