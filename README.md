@@ -45,7 +45,7 @@ You can study following through this sample
 ##Document
 
 - [「C# 大好き MVP による、C# ドキドキ・ライブコーディング!!」小島の分](http://www.slideshare.net/Fujiwo/c-mvp-c) (Japanese)
-- [「C# 大好き MVP による、C# ドキドキ・ライブコーディング!!」でテトリス的なゲームを作った。(Hokuriku ComCamp 2016 - 2月20日) (プログラミング C# - 翔ソフトウェア)](http://blog.shos.info/archives/2016/02/hokurikucomcamp2016022live.html)
+- [「C# 大好き MVP による、C# ドキドキ・ライブコーディング!!」でテトリス的なゲームを作った。(Hokuriku ComCamp 2016 - 2月20日) (プログラミング C# - 翔ソフトウェア)](http://blog.shos.info/archives/2016/02/hokurikucomcamp2016022live.html) (Japanese)
 
 
 ##License
