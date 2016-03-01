@@ -2,7 +2,7 @@
 
 Tetris like sample game applications written in C#/WPF/.NET, C#/Windows Forms/.NET, C#/Console Applicaion/.NET and TypeScript/HTML.
 
-These were written for [Hokuriku ComCamp 2016 powerd by MVPs](http://hokurikucomcamp.connpass.com/event/23628/).
+These were written for [Hokuriku ComCamp 2016 powerd by MVPs](http://hokurikucomcamp.connpass.com/event/23628/).<br>
 Here is an article about this (Japanese): [「C# 大好き MVP による、C# ドキドキ・ライブコーディング!!」でテトリス的なゲームを作った。(Hokuriku ComCamp 2016 - 2月20日) (プログラミング C# - 翔ソフトウェア)](http://blog.shos.info/archives/2016/02/hokurikucomcamp2016022live.html)
 
 You can study following through this sample
